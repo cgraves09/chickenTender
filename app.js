@@ -2,7 +2,7 @@
 
 $('#button').click(function(event){
     event.preventDefault();
-    let zipCode = $('#zip-code').val();
+    var zipCode = $('#zip-code').val();
     console.log(zipCode)
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + zipCode + "&limit=10";
     
