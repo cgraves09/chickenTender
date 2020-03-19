@@ -26,9 +26,6 @@ $('#button').click(function(event){
                     var name = $('<h1>' + item[i].name + '</h1>');
                     var rating = $('<h3> Rating: ' + item[i].rating + '</h3>');
                     var category = $('<h4>' + item[i].categories[0].title + '</h4>');
-                    // var city = item.location.city;
-                    // var state = item.location.state;
-                    // var zipcode = item.location.zip_code;
                     var divCol = $('<div class="col-md-4">')
                     divCol.append(name,category,rating,image)
                     
