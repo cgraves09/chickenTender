@@ -64,6 +64,7 @@ function callGoogleApi() {
 // Patrick Changes End
 
 var counter = 0;
+
 var firebaseConfig = {
     apiKey: "AIzaSyCF-udTyqxcouGmz7SBrpB7Jr2BhdThzPg",
     authDomain: "chickentender-e2f0a.firebaseapp.com",
@@ -73,18 +74,28 @@ var firebaseConfig = {
     messagingSenderId: "191417021703",
     appId: "1:191417021703:web:36a00686478c272845c1a2"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
 
+   // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+ 
   var database = firebase.database();
 
-//   create a timer function to start once user inputs zip code and clicks submit
 
-// submit button for zip code
+
+// submit button to activate Yelp API call
 $('#button').click(function(event){
     event.preventDefault();
 
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&radius=2000&limit=10";
+    // Variables to add to url
+    var categories = $("#input-categories").val();
+    var price = $('#input-price').val();
+    var miles = $('#input-radius').val();
+    var radius  = miles * 1609;
+
+    // Yelp API URL
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&categories="+ categories + "&open_now=true&limit=10";
     console.log(myurl);
     $.ajax({
         url: myurl,
@@ -108,6 +119,7 @@ $('#button').click(function(event){
                 var divCol = $('<div class="col-md-4 choice">')
                 var selectBtn = $('<br><button id="select-btn" class="btn"> Add To selection </button>')
                 var item = data.businesses
+
                 // Attaching tags to the column
                 divCol.attr('name',item[i].name);
                 divCol.attr('rating',item[i].rating);
@@ -115,7 +127,8 @@ $('#button').click(function(event){
                 divCol.attr('category',item[i].categories[0].title);
                 divCol.append(name,category,rating,image,selectBtn);
                 divRow.append(divCol);
-                // Append our result into our page
+                
+                // Append our result into the page
                 $('#results').append(divRow);
             } 
             // setting user choices to firebase database
@@ -127,7 +140,6 @@ $('#button').click(function(event){
                     category: $(this).attr('category'),
                     rating: $(this).attr('rating'),
                     image: $(this).attr('image'),
-                    
                 });
                 $(this).empty();
                 if (counter === 3) {
@@ -141,6 +153,7 @@ $('#button').click(function(event){
 });
 
 function retrieve (){
+
     var snapRow = $('<div class="row">');
     // retrieving data set from user selections
     database.ref('options').on('child_added', function(snapshot){
@@ -157,7 +170,7 @@ function retrieve (){
         snapCol.append(snapName,snapCategory,snapRating,snapImage,snapBtn);
         snapRow.append(snapCol);
         $('#results').append(snapRow);
-
+      
         $('.snapChoice').click(function(event){
             event.preventDefault();
             counter++;
@@ -190,4 +203,4 @@ function clearData (){
 
 // Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
 
-     
+//   create a timer function to start once user inputs zip code and clicks submit     
