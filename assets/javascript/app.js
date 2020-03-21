@@ -19,10 +19,9 @@ function showPosition(position) {
 
 
 
+
 function callGoogleApi() {
-// Need to fix QueryURL, think that is the problem
-    var queryURL2 = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=|' + homeGeo +
-      '&destinations=' + restaurantGeo + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
+    var queryURL2 = 'https://cors-anywhere.herokuapp.com/https://www.google.com/maps/dir/?api=1&parameters' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
   
     $.ajax({
       url: queryURL2,
@@ -31,37 +30,41 @@ function callGoogleApi() {
     }).then(function (response) {
 
     })
-  }
+  initMap();}
 
-  // Supposed to display a map with coordinates, doesn't work yet
+  
+  //invalid API key in HTML Still, has to be hidden from console inspection
   function initMap() {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
+      zoom: 7,
+      center: {lat: 41.85, lng: -87.65}
     });
-    var geocoder = new google.maps.Geocoder();
+    directionsRenderer.setMap(map);
 
-    document.getElementById('submit').addEventListener('click', function() {
-      geocodeAddress(geocoder, map);
-    });
+    var onChangeHandler = function() {
+      calculateAndDisplayRoute(directionsService, directionsRenderer);
+    };
+    
   }
 
-  function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').value;
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === 'OK') {
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
+  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    directionsService.route(
+        {
+          origin: {query: document.getElementById('start').value},
+          destination: {query: document.getElementById('end').value},
+          travelMode: 'DRIVING'
+        },
+        function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
         });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
   }
 
-// Patrick Changes End
 
 var counter = 0;
 
