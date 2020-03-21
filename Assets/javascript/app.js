@@ -1,3 +1,66 @@
+// Patrick changes Start
+
+// Upon loading page, will request user location immediately instead of using a zip code input
+var userLat = 0;
+var userLon = 0;
+
+getLocation();
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+
+function showPosition(position) {
+    userLat = position.coords.latitude
+    userLon = position.coords.longitude
+    console.log(userLat + " " + userLon)
+   }
+
+
+function callGoogleApi() {
+// Need to fix QueryURL, think that is the problem
+    var queryURL2 = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=|' + homeGeo +
+      '&destinations=' + restaurantGeo + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
+  
+    $.ajax({
+      url: queryURL2,
+      dataType: 'json',
+      method: 'GET'
+    }).then(function (response) {
+    })
+  }
+
+  // Supposed to display a map with coordinates, doesn't work yet
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: -34.397, lng: 150.644}
+    });
+    var geocoder = new google.maps.Geocoder();
+
+    document.getElementById('submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map);
+    });
+  }
+
+  function geocodeAddress(geocoder, resultsMap) {
+    var address = document.getElementById('address').value;
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+// Patrick Changes End
+
 var counter = 0;
 
 
@@ -98,4 +161,4 @@ function retrieve (){
 
 }
 
-
+}
