@@ -32,7 +32,7 @@ $('#button').click(function(event){
         success: function(data){
             $('#results').empty();
             console.log(data.businesses)
-            
+            var item = data.businesses;
             // If our results are greater than 0, continue
             var divRow = $('<div class="row">')
                 // Itirate through the JSON array of 'businesses' which was returned by the API
@@ -99,6 +99,7 @@ function retrieve (){
             counter++;
             var finalRow = $('<div class="row">');
             if (counter === 1){
+                counter = 0;
                 $('#results').empty();
                 clearData();
                 var finalCol = $('<div class="col-md-6 snapChoice">');
