@@ -84,8 +84,8 @@ var firebaseConfig = {
 $('#button').click(function(event){
     event.preventDefault();
 
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&limit=10";
-    
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&radius=2000&limit=10";
+    console.log(myurl);
     $.ajax({
         url: myurl,
         headers: {
