@@ -1,8 +1,8 @@
 // Patrick changes Start
 
 // Upon loading page, will request user location immediately instead of using a zip code input
-var userLat = 0;
-var userLon = 0;
+var userLat = '';
+var userLon = '';
 
 getLocation();
 
@@ -15,7 +15,8 @@ function showPosition(position) {
     userLat = position.coords.latitude
     userLon = position.coords.longitude
     console.log(userLat + " " + userLon)
-   }
+};
+
 
 
 function callGoogleApi() {
@@ -28,6 +29,7 @@ function callGoogleApi() {
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
+
     })
   }
 
@@ -81,9 +83,8 @@ var firebaseConfig = {
 // submit button for zip code
 $('#button').click(function(event){
     event.preventDefault();
-    var zipCode = $('#zip-code').val();
-    console.log(zipCode)
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&location=" + zipCode + "&limit=10";
+
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&limit=10";
     
     $.ajax({
         url: myurl,
