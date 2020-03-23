@@ -88,7 +88,7 @@ var firebaseConfig = {
 
 
 // submit button to activate Yelp API call
-$('#button').click(function(event){
+$('#submit').click(function(event){
     event.preventDefault();
 
     // Variables to add to url
@@ -96,9 +96,11 @@ $('#button').click(function(event){
     var price = $('#input-price').val();
     var miles = $('#input-radius').val();
     var radius  = miles * 1609;
-
+    console.log(price)
+    console.log(radius)
+    console.log(categories)
     // Yelp API URL
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&categories="+ categories + "&open_now=true&limit=10";
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + categories+ "&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&open_now=true&limit=10";
     console.log(myurl);
     $.ajax({
         url: myurl,
@@ -119,16 +121,16 @@ $('#button').click(function(event){
                 var name = $('<h1 id="name-text">' + item[i].name + '</h1>');
                 var rating = $('<h3 id="rating-text"> Rating: ' + item[i].rating + '</h3>');
                 var category = $('<h4 id="category-text">' + item[i].categories[0].title + '</h4>');
+                var price = $('<h5 id="category-text">' + item[i].price + '</h5>');
                 var divCol = $('<div class="col-md-4 choice">')
                 var selectBtn = $('<br><button id="select-btn" class="btn"> Add To selection </button>')
-                var item = data.businesses
 
                 // Attaching tags to the column
                 divCol.attr('name',item[i].name);
                 divCol.attr('rating',item[i].rating);
                 divCol.attr('image',item[i].image_url);
                 divCol.attr('category',item[i].categories[0].title);
-                divCol.append(name,category,rating,image,selectBtn);
+                divCol.append(name,category,rating,price,image,selectBtn);
                 divRow.append(divCol);
                 
                 // Append our result into the page

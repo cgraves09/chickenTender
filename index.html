@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="Assets/css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
@@ -27,7 +25,7 @@
                   <form>
                     <div class="form-group">
                       <label for="cuisine-type">Cuisine</label>
-                      <select id="price-type" class="form-control">
+                      <select id="input-categories" class="form-control">
                         <option selected>Choose...</option>
                         <option>American</option>
                         <option>Mexican</option>
@@ -43,24 +41,24 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPrice">Price</label>
-                        <select id="price-type" class="form-control">
+                        <select id="input-price" class="form-control">
                           <option selected>Choose...</option>
-                          <option>$</option>
-                          <option>$$</option>
-                          <option>$$$</option>
-                          <option>$$$$</option>
+                          <option value="1">$</option>
+                          <option value="2">$$</option>
+                          <option value="3">$$$</option>
+                          <option value="4">$$$$</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="inputRadius">Radius</label>
                         <select id="input-radius" class="form-control">
                           <option selected>...Miles</option>
-                          <option>5 mi</option>
-                          <option>10 mi</option>
-                          <option>15 mi</option>
+                          <option value="5">5 mi</option>
+                          <option value="10">10 mi</option>
+                          <option value="15">15 mi</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                   </form>
                 </div>
               </div>
@@ -69,11 +67,6 @@
     </div>
 </div>  
   
-  
-  <button id="button" type="button" class="btn btn-primary">Submit</button>
-
-
-    
     <div id="results"></div>
 
     <div id="floating-panel">
@@ -82,10 +75,6 @@
     </div>
 
     <div id="map"></div>
-
-  <script src="Assets/javascript/app.js"></script>  
- 
-
     <div id="results"></div>
 
 
