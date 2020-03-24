@@ -71,6 +71,8 @@ var offset = 0;
 var option = 0;
 var loveBtn = $('<br><button id="love-btn" class="btn btn-primary"> LOVE IT  </button>')
 var hateBtn = $('<button id="hate-btn" class="btn btn-primary"> HATE IT </button>')
+var locationLon;
+var locationLat;
 
 // firebase config
 var firebaseConfig = {
@@ -134,6 +136,8 @@ function yelpCall (){
               divCol.attr('rating',item[i].rating);
               divCol.attr('image',item[i].image_url);
               divCol.attr('category',item[i].categories[0].title);
+              divCol.attr('latitude',item[i].coordinates.latitude)
+              divCol.attr('longitude',item[i].coordinates.longitude);
               divCol.append(name,category,rating,price,image,loveBtn,hateBtn);
               divRow.append(divCol);
               
@@ -153,6 +157,8 @@ function yelpCall (){
             category: $(divCol).attr('category'),
             rating: $(divCol).attr('rating'),
             image: $(divCol).attr('image'),
+            latitude: $(divCol).attr('latitude'),
+            longitude: $(divCol).attr('longitude')
             });
 
             $('#results').empty()
@@ -185,7 +191,8 @@ function retrieve (){
         var snapCategory = $('<h4 id="category-text">' + snapshot.val().category + '</h4>');
         var snapRating = $('<h3 id="rating-text"> Rating: ' + snapshot.val().rating + '</h3>');
         var snapImage = $('<img id="image-api" src="' + snapshot.val().image + '"height="200" width="200">');
-        var snapBtn = $('<br><button id="select-btn" class="btn"> Add To selection </button>')
+        locationLat = snapshot.val().latitude;
+        locationLon = snapshot.val().longitude;
         snapCol.attr('name',snapshot.val().name);
         snapCol.attr('category',snapshot.val().category);
         snapCol.attr('rating',snapshot.val().rating);
