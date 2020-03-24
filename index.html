@@ -1,83 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chicken Tender</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
-</head>
+  </head>
 
-<body>
-      
-  <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                  Input info
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">Put info</h5>
-                  <form>
-                    <div class="form-group">
-                      <label for="cuisine-type">Cuisine</label>
-                      <select id="input-categories" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>American</option>
-                        <option>Mexican</option>
-                        <option>Thai</option>
-                        <option>Greek</option>
-                        <option>Indian</option>
-                        <option>Japanese</option>
-                        <option>Spanish</option>
-                        <option>French</option>
-                        <option>Chinese</option>
-                        <option>Italian</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPrice">Price</label>
-                        <select id="input-price" class="form-control">
-                          <option selected>Choose...</option>
-                          <option value="1">$</option>
-                          <option value="2">$$</option>
-                          <option value="3">$$$</option>
-                          <option value="4">$$$$</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputRadius">Radius</label>
-                        <select id="input-radius" class="form-control">
-                          <option selected>...Miles</option>
-                          <option value="5">5 mi</option>
-                          <option value="10">10 mi</option>
-                          <option value="15">15 mi</option>
-                        </select>
-                    </div>
-                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                  </form>
-                </div>
-              </div>
+  <body>
+    <!--This header holds the name and input for geotagging-->
 
+    <div class="header">
+      <div id="logo">Chicken tender</div>
+    </div>
+    <div class="container">
+      <!--user input section and the location where the results will be shown-->
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Where do you want to eat?
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <form>
+                <div class="form-group">
+                  <label for="cuisine-type">Cuisine</label>
+                  <select id="input-categories" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>American</option>
+                    <option>Mexican</option>
+                    <option>Thai</option>
+                    <option>Greek</option>
+                    <option>Indian</option>
+                    <option>Japanese</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                    <option>Chinese</option>
+                    <option>Italian</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputPrice">Price</label>
+                  <select id="input-price" class="form-control">
+                    <option selected>Choose...</option>
+                    <option value="1">$</option>
+                    <option value="2">$$</option>
+                    <option value="3">$$$</option>
+                    <option value="4">$$$$</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inputRadius">Radius</label>
+                  <select id="input-radius" class="form-control">
+                    <option selected>...Miles</option>
+                    <option value="5">5 mi</option>
+                    <option value="10">10 mi</option>
+                    <option value="15">15 mi</option>
+                  </select>
+                </div>
+                <button id="submit" type="submit" class="btn btn-warning">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
+
+        <div class="col-md-8">
+          <div class="card-header">
+            <h5>Partner 1 picks 3 of the follwing choices:</h5>
+            <div id="results"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--the geo map will be heald on the left and the timer will be held on the right-->
+
+      <div class="row">
+        <div class="col-md-4" id="map">
+          <img src="assets/css/map.jpg" alt="generic-map" />
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-6" id="timer"></div>
+      </div>
     </div>
-</div>  
-  
-    <div id="results"></div>
 
-    <div id="floating-panel">
-      <input id="address" type="textbox" value="Sydney, NSW">
-      <input id="submit" type="button" value="Geocode">
-    </div>
-
-    <div id="map"></div>
-    <div id="results"></div>
-
-
-  <script src="assets/javascript/app.js"></script>  
-</body>
+    <script src="assets/javascript/app.js"></script>
+  </body>
 </html>
