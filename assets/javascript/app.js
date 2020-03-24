@@ -73,6 +73,7 @@ var loveBtn = $('<br><button id="love-btn" class="btn btn-primary"> LOVE IT  </b
 var hateBtn = $('<button id="hate-btn" class="btn btn-primary"> HATE IT </button>')
 var locationLon;
 var locationLat;
+var latToString;
 
 // firebase config
 var firebaseConfig = {
@@ -94,12 +95,15 @@ var database = firebase.database();
 // submit button to activate Yelp API call
 $('#submit').click(function(event){
   event.preventDefault();
+  latToString = Math.floor(Math.random()*50);
+  console.log(latToString)
   // calling yelp api
   yelpCall();
 });
 
 // yelp api call
 function yelpCall (){
+    
     var categories = $("#input-categories").val();
     var price = $('#input-price').val();
     var miles = $('#input-radius').val();
@@ -152,7 +156,7 @@ function yelpCall (){
             offset++;
             option++;
             // pushing items to the firebase console
-            database.ref('options' + option).push({
+            database.ref('options' + option + latToString).push({
             name: $(divCol).attr('name'),
             category: $(divCol).attr('category'),
             rating: $(divCol).attr('rating'),
@@ -182,10 +186,10 @@ function yelpCall (){
 };
 
 function retrieve (){
-
+    console.log(latToString)
     var snapRow = $('<div class="row">');
     // retrieving data set from user selections
-    database.ref('options' + option).on('child_added', function(snapshot){
+    database.ref('options' + option + latToString).on('child_added', function(snapshot){
         var snapCol = $('<div class="col-md-4 snapChoice">');
         var snapName = $('<h1 id="name-text">' + snapshot.val().name + '</h1>');
         var snapCategory = $('<h4 id="category-text">' + snapshot.val().category + '</h4>');
@@ -207,6 +211,7 @@ function retrieve (){
             var finalRow = $('<div class="row">');
             if (counter === 1){
                 counter = 0;
+                option = 0;
                 $('#results').empty();
                 clearData();
                 var finalCol = $('<div class="col-md-6 snapChoice">');
@@ -232,9 +237,9 @@ function retrieve (){
 
 // function to clear firebase database
 function clearData (){
-    var option1 = database.ref('options' + 1);
-    var option2 = database.ref('options' + 2);
-    var option3 = database.ref('options' + 3);
+    var option1 = database.ref('options' + 1 + latToString);
+    var option2 = database.ref('options' + 2 + latToString);
+    var option3 = database.ref('options' + 3 + latToString);
     option1.remove();
     option2.remove();
     option3.remove();
