@@ -1,6 +1,4 @@
-// Patrick changes Start
-
-// Upon loading page, will request user location immediately instead of using a zip code input
+// Location Code: Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
 var userLon = '';
 
@@ -11,60 +9,55 @@ function getLocation() {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
 }
+
 function showPosition(position) {
     userLat = position.coords.latitude
     userLon = position.coords.longitude
     console.log(userLat + " " + userLon)
 };
 
+// Location Code End; Working.
 
-
-
+// Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
-    var queryURL2 = 'https://cors-anywhere.herokuapp.com/https://www.google.com/maps/dir/?api=1&parameters' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
-  
+    var queryURL = 'https://cors-anywhere.herokuapp.com/http://maps.google.com/maps/api/js?' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
+    // Need to check google maps queryurl specifically for directions, also on html
     $.ajax({
-      url: queryURL2,
+      url: queryURL,
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
+    })}
 
-    })
-  initMap();}
+  // Google Maps API Code End; Display Map but not specific location yet.
 
-  
-  //invalid API key in HTML Still, has to be hidden from console inspection
+   // Initialize Map Function Code
   function initMap() {
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
-      center: {lat: 41.85, lng: -87.65}
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
     directionsRenderer.setMap(map);
+    directionsRenderer.setPanel(document.getElementById('floating-panel'));
 
-    var onChangeHandler = function() {
-      calculateAndDisplayRoute(directionsService, directionsRenderer);
+    var request = {
+      origin: userLat + userLon,
+      destination: locationLon + locationLat,
+      // Destination needs to be plugged in from yelp API, needs to be confirmed
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
-    
+
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsRenderer.setDirections(response);
+      }
+    });
   }
 
-  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    directionsService.route(
-        {
-          origin: {query: document.getElementById('start').value},
-          destination: {query: document.getElementById('end').value},
-          travelMode: 'DRIVING'
-        },
-        function(response, status) {
-          if (status === 'OK') {
-            directionsRenderer.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-  }
-
+  // Initialize Map Code End
 
 var counter = 0;
 
