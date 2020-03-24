@@ -193,7 +193,7 @@ function retrieve (){
         snapCol.attr('category',snapshot.val().category);
         snapCol.attr('rating',snapshot.val().rating);
         snapCol.attr('image',snapshot.val().image);
-        snapCol.append(snapName,snapCategory,snapRating,snapImage,snapBtn,loveBtn,hateBtn);
+        snapCol.append(snapName,snapCategory,snapRating,snapImage,loveBtn,hateBtn);
         snapRow.append(snapCol);
         $('#results').append(snapRow);
       
