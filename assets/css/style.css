@@ -1,3 +1,4 @@
+
 #map {
     height: 100%;
   }
@@ -20,3 +21,58 @@
     line-height: 30px;
     padding-left: 10px;
   }
+
+body {
+    background-color: #F4F4F8;
+}
+
+.header {
+    background-color: #FE4A49;
+    height: 50px;
+}
+
+.row {
+    margin-top: 10px;
+}
+
+#logo {
+    color: white;
+    font-size: 30px;
+    float: left;
+}
+
+#floating-panel {
+    float: right;
+    
+}
+
+.col-md-8 {
+    border: 2px solid #e6e6ea;
+    padding: 0;
+}
+
+#submit {
+    background-color: #2AB7CA;
+    border-color: 1px solid #FED766;
+}
+
+#submit:hover {
+    background-color: #FED766;
+}
+
+
+#map img{
+    height: 200px;
+    width: 200px;
+    border: 2px solid #e6e6ea;
+}
+
+#timer {
+    border: 2px solid #e6e6ea;
+}
+
+.card-header {
+    background-color: #FE4A49;
+    color: white;
+}
+
