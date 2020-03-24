@@ -1,4 +1,4 @@
-ody {
+body {
     background-color: #F4F4F8;
 }
 
@@ -8,7 +8,7 @@ ody {
 }
 
 .row {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #logo {
@@ -17,22 +17,17 @@ ody {
     float: left;
 }
 
-#floating-pannel {
-    float: right;
-    
-}
-
 .col-md-8 {
     border: 2px solid #e6e6ea;
     padding: 0;
 }
 
-#submit {
+#submit, #love-btn, #hate-btn {
     background-color: #2AB7CA;
     border-color: 1px solid #FED766;
 }
 
-#submit:hover {
+#submit:hover, #love-btn:hover, #hate-btn:hover {
     background-color: #FED766;
 }
 
@@ -50,4 +45,15 @@ ody {
 .card-header {
     background-color: #FE4A49;
     color: white;
+    text-align: center;
 }
+
+.choice {
+    text-align: center;
+    margin: auto;
+}
+
+#image-api {
+    margin-bottom: 15px !important;
+}
+

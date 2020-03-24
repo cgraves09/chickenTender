@@ -1,4 +1,4 @@
-// Patrick changes Start
+ // Patrick changes Start
 
 // Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
@@ -69,8 +69,8 @@ function callGoogleApi() {
 var counter = 0;
 var offset = 0;
 var option = 0;
-var loveBtn = $('<br><button id="love-btn" class="btn btn-primary"> LOVE IT  </button>')
-var hateBtn = $('<button id="hate-btn" class="btn btn-primary"> HATE IT </button>')
+var loveBtn = $('<button id="love-btn" class="btn btn-warning m-auto"> LOVE IT  </button>')
+var hateBtn = $('<button id="hate-btn" class="btn btn-warning m-auto"> HATE IT </button>')
 var locationLon;
 var locationLat;
 
@@ -125,12 +125,14 @@ function yelpCall (){
           var divRow = $('<div class="row">')
               // Itirate through the JSON array of 'businesses' which was returned by the API
           for (var i = 0; i < data.businesses.length; i++){
-              var image = $('<img id="image-api" src="' + item[i].image_url + '"height="200" width="200">');
+              var image = $('<img id="image-api" class="m-auto" src="' + item[i].image_url + '"height="200" width="200">');
               var name = $('<h1 id="name-text">' + item[i].name + '</h1>');
               var rating = $('<h3 id="rating-text"> Rating: ' + item[i].rating + '</h3>');
               var category = $('<h4 id="category-text">' + item[i].categories[0].title + '</h4>');
               var price = $('<h5 id="category-text">' + item[i].price + '</h5>');
-              var divCol = $('<div class="col-md-4 choice">')
+              var divCol = $('<div class="col-md-4 choice text-center">');
+              var loveCol =  $('<div class="col-md-2 m-auto p-0 d-flex justify-content-center">');
+              var hateCol =  $('<div class="col-md-2 m-auto p-0 d-flex justify-content-center">');
               // Attaching tags to the column
               divCol.attr('name',item[i].name);
               divCol.attr('rating',item[i].rating);
@@ -138,8 +140,10 @@ function yelpCall (){
               divCol.attr('category',item[i].categories[0].title);
               divCol.attr('latitude',item[i].coordinates.latitude)
               divCol.attr('longitude',item[i].coordinates.longitude);
-              divCol.append(name,category,rating,price,image,loveBtn,hateBtn);
-              divRow.append(divCol);
+              divCol.append(name,category,rating,price,image);
+              loveCol.append(loveBtn);
+              hateCol.append(hateBtn);
+              divRow.append(hateCol, divCol, loveCol);
               
               // Append our result into the page
               $('#results').append(divRow);
