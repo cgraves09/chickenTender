@@ -65,9 +65,14 @@ function callGoogleApi() {
         });
   }
 
-
+// global variables
 var counter = 0;
+var offset = 0;
+var option = 0;
+var loveBtn = $('<br><button id="love-btn" class="btn btn-primary"> LOVE IT  </button>')
+var hateBtn = $('<button id="hate-btn" class="btn btn-primary"> HATE IT </button>')
 
+// firebase config
 var firebaseConfig = {
     apiKey: "AIzaSyCF-udTyqxcouGmz7SBrpB7Jr2BhdThzPg",
     authDomain: "chickentender-e2f0a.firebaseapp.com",
@@ -77,21 +82,22 @@ var firebaseConfig = {
     messagingSenderId: "191417021703",
     appId: "1:191417021703:web:36a00686478c272845c1a2"
   };
-
-   // Initialize Firebase
-  if (!firebase.apps.length) {
+// Initialize Firebase
+if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
- 
-  var database = firebase.database();
 
-
+var database = firebase.database();
 
 // submit button to activate Yelp API call
 $('#submit').click(function(event){
-    event.preventDefault();
+  event.preventDefault();
+  // calling yelp api
+  yelpCall();
+});
 
-    // Variables to add to url
+// yelp api call
+function yelpCall (){
     var categories = $("#input-categories").val();
     var price = $('#input-price').val();
     var miles = $('#input-radius').val();
@@ -100,68 +106,80 @@ $('#submit').click(function(event){
     console.log(radius)
     console.log(categories)
     // Yelp API URL
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + categories+ "&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&open_now=true&limit=10";
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + categories+ "&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&open_now=true&offset=" + offset + "&limit=1";
     console.log(myurl);
     $.ajax({
-        url: myurl,
-        headers: {
-            'Authorization':'Bearer LnkA2CEzdM-EAKVWX9RR-BPrwruVWTXUJeysRUuXJYCiB_KcFqVEE1RKDw1Rfe-u8n-x0DMuPy2AFinDnF90_ql9phu5y0C3CFTcijQ5AQEPf7YtZPXthq6M2XlzXnYx',
-        },
-        method: 'GET',
-        dataType: 'json',
-        success: function(data){
-            $('#results').empty();
-            console.log(data.businesses)
-            var item = data.businesses;
-            // If our results are greater than 0, continue
-            var divRow = $('<div class="row">')
-                // Itirate through the JSON array of 'businesses' which was returned by the API
-            for (var i = 0; i < data.businesses.length; i++){
-                var image = $('<img id="image-api" src="' + item[i].image_url + '"height="200" width="200">');
-                var name = $('<h1 id="name-text">' + item[i].name + '</h1>');
-                var rating = $('<h3 id="rating-text"> Rating: ' + item[i].rating + '</h3>');
-                var category = $('<h4 id="category-text">' + item[i].categories[0].title + '</h4>');
-                var price = $('<h5 id="category-text">' + item[i].price + '</h5>');
-                var divCol = $('<div class="col-md-4 choice">')
-                var selectBtn = $('<br><button id="select-btn" class="btn"> Add To selection </button>')
+      url: myurl,
+      headers: {
+          'Authorization':'Bearer LnkA2CEzdM-EAKVWX9RR-BPrwruVWTXUJeysRUuXJYCiB_KcFqVEE1RKDw1Rfe-u8n-x0DMuPy2AFinDnF90_ql9phu5y0C3CFTcijQ5AQEPf7YtZPXthq6M2XlzXnYx',
+      },
+      method: 'GET',
+      dataType: 'json',
+      success: function(data){
+          $('#results').empty();
+          console.log(data.businesses)
+          var item = data.businesses;
+          // If our results are greater than 0, continue
+          var divRow = $('<div class="row">')
+              // Itirate through the JSON array of 'businesses' which was returned by the API
+          for (var i = 0; i < data.businesses.length; i++){
+              var image = $('<img id="image-api" src="' + item[i].image_url + '"height="200" width="200">');
+              var name = $('<h1 id="name-text">' + item[i].name + '</h1>');
+              var rating = $('<h3 id="rating-text"> Rating: ' + item[i].rating + '</h3>');
+              var category = $('<h4 id="category-text">' + item[i].categories[0].title + '</h4>');
+              var price = $('<h5 id="category-text">' + item[i].price + '</h5>');
+              var divCol = $('<div class="col-md-4 choice">')
+              // Attaching tags to the column
+              divCol.attr('name',item[i].name);
+              divCol.attr('rating',item[i].rating);
+              divCol.attr('image',item[i].image_url);
+              divCol.attr('category',item[i].categories[0].title);
+              divCol.append(name,category,rating,price,image,loveBtn,hateBtn);
+              divRow.append(divCol);
+              
+              // Append our result into the page
+              $('#results').append(divRow);
+          } 
 
-                // Attaching tags to the column
-                divCol.attr('name',item[i].name);
-                divCol.attr('rating',item[i].rating);
-                divCol.attr('image',item[i].image_url);
-                divCol.attr('category',item[i].categories[0].title);
-                divCol.append(name,category,rating,price,image,selectBtn);
-                divRow.append(divCol);
-                
-                // Append our result into the page
-                $('#results').append(divRow);
-            } 
-            // setting user choices to firebase database
-            $('.choice').click(function(event){
-                event.preventDefault();
-                counter++ 
-                database.ref('options').push({
-                    name: $(this).attr('name'),
-                    category: $(this).attr('category'),
-                    rating: $(this).attr('rating'),
-                    image: $(this).attr('image'),
-                });
-                $(this).empty();
-                if (counter === 3) {
-                    $('#results').empty();
-                    counter = 0;
-                    retrieve();
-                };
+          // setting user choices to firebase database
+          $('#love-btn').click(function(event){
+            event.preventDefault();
+            counter++ 
+            offset++;
+            option++;
+            // pushing items to the firebase console
+            database.ref('options' + option).push({
+            name: $(divCol).attr('name'),
+            category: $(divCol).attr('category'),
+            rating: $(divCol).attr('rating'),
+            image: $(divCol).attr('image'),
             });
-        }
+
+            $('#results').empty()
+            
+            if (counter === 3) {
+            $('#results').empty();
+            counter = 0;
+            option = 1
+            retrieve();
+            } else {
+              yelpCall();
+            };
+         });
+         $('#hate-btn').click(function(event){
+           event.preventDefault();
+           offset++;
+           yelpCall();
+         })
+      }      
     });
-});
+};
 
 function retrieve (){
 
     var snapRow = $('<div class="row">');
     // retrieving data set from user selections
-    database.ref('options').on('child_added', function(snapshot){
+    database.ref('options' + option).on('child_added', function(snapshot){
         var snapCol = $('<div class="col-md-4 snapChoice">');
         var snapName = $('<h1 id="name-text">' + snapshot.val().name + '</h1>');
         var snapCategory = $('<h4 id="category-text">' + snapshot.val().category + '</h4>');
@@ -172,11 +190,11 @@ function retrieve (){
         snapCol.attr('category',snapshot.val().category);
         snapCol.attr('rating',snapshot.val().rating);
         snapCol.attr('image',snapshot.val().image);
-        snapCol.append(snapName,snapCategory,snapRating,snapImage,snapBtn);
+        snapCol.append(snapName,snapCategory,snapRating,snapImage,snapBtn,loveBtn,hateBtn);
         snapRow.append(snapCol);
         $('#results').append(snapRow);
       
-        $('.snapChoice').click(function(event){
+        $('#love-btn').click(function(event){
             event.preventDefault();
             counter++;
             var finalRow = $('<div class="row">');
@@ -185,25 +203,34 @@ function retrieve (){
                 $('#results').empty();
                 clearData();
                 var finalCol = $('<div class="col-md-6 snapChoice">');
-                var finalName = $('<h1 id="name-text">' + $(this).attr('name') + '</h1>');
-                var finalCategory = $('<h4 id="category-text">' + $(this).attr('category') + '</h4>');
-                var finalRating = $('<h3 id="rating-text"> Rating: ' + $(this).attr('rating') + '</h3>');
-                var finalImage = $('<img id="image-api" src="' + $(this).attr('image') + '"height="200" width="200">');
+                var finalName = $('<h1 id="name-text">' + $(snapCol).attr('name') + '</h1>');
+                var finalCategory = $('<h4 id="category-text">' + $(snapCol).attr('category') + '</h4>');
+                var finalRating = $('<h3 id="rating-text"> Rating: ' + $(snapCol).attr('rating') + '</h3>');
+                var finalImage = $('<img id="image-api" src="' + $(snapCol).attr('image') + '"height="200" width="200">');
                 finalCol.append(finalName,finalCategory,finalRating,finalImage);
                 finalRow.append(finalCol);
                 $('#results').append(finalRow);
                 // go into function to show results and display with col-md-6
             };
         });
-
+        $('#hate-btn').click(function(event){
+          event.preventDefault();
+          $('#results').empty();
+          option++;
+          retrieve();
+        })
     });
 
 };
 
 // function to clear firebase database
 function clearData (){
-    let userRef = database.ref('options');
-    userRef.remove();
+    var option1 = database.ref('options' + 1);
+    var option2 = database.ref('options' + 2);
+    var option3 = database.ref('options' + 3);
+    option1.remove();
+    option2.remove();
+    option3.remove();
 }
 
 // Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
