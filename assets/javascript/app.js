@@ -20,7 +20,7 @@ function showPosition(position) {
 
 // Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
-    var queryURL = 'https://cors-anywhere.herokuapp.com/http://maps.google.com/maps/api/js?' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
+    var queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?parameters' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
     // Need to check google maps queryurl specifically for directions, also on html
     $.ajax({
       url: queryURL,
@@ -50,9 +50,9 @@ function callGoogleApi() {
       travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
 
-    directionsService.route(request, function(response, status) {
+    directionsService.route(request, function(result, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-        directionsRenderer.setDirections(response);
+        directionsRenderer.setDirections(result);
       }
     });
   }
