@@ -22,7 +22,7 @@ function showPosition(position) {
 function callGoogleApi() {
   var userCoords = userLat + "," + userLon;
   var destinationCoords = locationLat + "," + locationLon;
-  var apiKey = 'AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E';
+  var apiKey = 'AIzaSyBbn_l6L-PlaPtI_4DvG5nQ_Eti1o0kbOA';
   var queryURL =  'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?units=imperial&origin=' + userCoords + '&destination=' + destinationCoords +'&key=' + apiKey;
     $.ajax({
       url: queryURL,
@@ -30,38 +30,46 @@ function callGoogleApi() {
       method: 'GET'
     }).then(function (response) {
       console.log(response);
+       initMap();
     })
-    initMap();
+   
 }
 
   // Google Maps API Code End; Display Map but not specific location yet.
+      function initMap() {
+        var directionsRenderer = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: userLat, lng: userLon}
+        });
+        directionsRenderer.setMap(map);
 
-   // Initialize Map Function Code
-  function initMap() {
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    directionsRenderer.setMap(map);
-    directionsRenderer.setPanel(document.getElementById('floating-panel'));
-
-    var request = {
-      origin: userLat + userLon,
-      destination: locationLon + locationLat,
-      travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-
-    directionsService.route(request, function(result, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsRenderer.setDirections(result);
-        console.log(result);
-        console.log(status);
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+        document.getElementById('mode').addEventListener('change', function() {
+          calculateAndDisplayRoute(directionsService, directionsRenderer);
+        });
       }
-    });
-  }
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        console.log(userLat)
+        console.log(locationLat)
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: userLat, lng: userLon},  // Haight.
+          destination: {lat: locationLat, lng: locationLon},  // Ocean Beach.
+          // Note that Javascript allows us to access the constant
+          // using square brackets and a string value as its
+          // "property."
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
 
 
 // Initialize Map Code End
@@ -189,7 +197,7 @@ function yelpCall (){
             });
 
             console.log(option)
-            if (option === 10) {
+            if (option === 2) {
             $('#results').empty();
             $('#results-title').empty();
             $('#results-title').append('<h5>Okay halfway there...Pick from the follwing choices:</h5>')
@@ -198,6 +206,7 @@ function yelpCall (){
             $('#next-user').modal('show');  
             counter = 0;
             option = 1;
+            retrieve();
             } else {
               $('#results').slideUp(500);
               yelpCall();
@@ -225,15 +234,18 @@ function retrieve (){
         var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
         var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
         var snapImage = $('<img id="image-api" class="col-md-12" src="' + snapshot.val().image + '"height="400" width="300">');
-        locationLat = snapshot.val().latitude;
-        locationLon = snapshot.val().longitude;
+        var latNum = snapshot.val().latitude;
+        var lonNum = snapshot.val().longitude;
         snapRow.attr('name',snapshot.val().name);
         snapRow.attr('category',snapshot.val().category);
         snapRow.attr('rating',snapshot.val().rating);
         snapRow.attr('image',snapshot.val().image);
         snapRow.attr('price',snapshot.val().price);
         snapRow.append(snapImage,snapName,snapCategory,snapRating,snapPrice,loveBtn,hateBtn);
-
+        locationLon = parseFloat(lonNum);
+        locationLat = parseFloat(latNum);
+        console.log(locationLon);
+        console.log(locationLat);
         // append to the results div
         $('#results').append(snapRow);
         $('#results').slideDown(2000);

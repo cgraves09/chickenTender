@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chicken Tender</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbn_l6L-PlaPtI_4DvG5nQ_Eti1o0kbOA"async defer></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <script src="https://kit.fontawesome.com/8fa7cf4c81.js" crossorigin="anonymous"></script>
@@ -78,11 +79,6 @@
           </div>
         </div>
 
-
-    <div id="divcontainer">
-      <div id="floating-panel"></div>
-      <div id="map"></div>
-    </div>
 
         <div class="col-md-8">
           <div class="card-header">
@@ -163,14 +159,22 @@
       <!--the geo map will be heald on the left and the timer will be held on the right-->
 
       <div class="row">
-        <div class="col-md-4" id="map">
-          <img src="assets/css/map.jpg" alt="generic-map" />
+        <div class="col-md-4">
+          <div id="floating-panel">
+            <b>Mode of Travel: </b>
+            <select id="mode">
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="BICYCLING">Bicycling</option>
+              <option value="TRANSIT">Transit</option>
+            </select>
+            </div>
+            <div id="map"></div>
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-6" id="timer"></div>
       </div>
     </div>
     <script src="assets/javascript/app.js"></script>
-    
   </body>
 </html>
