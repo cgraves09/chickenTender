@@ -42,7 +42,8 @@ function callGoogleApi() {
     var directionsRenderer = new google.maps.DirectionsRenderer();
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: userLat + userLon
     });
 
     directionsRenderer.setMap(map);
