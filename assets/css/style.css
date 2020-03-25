@@ -1,3 +1,31 @@
+
+
+
+
+#map {
+    height: 200px;
+  }
+ 
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+
+
 body {
     background-color: #F4F4F8;
 }
@@ -15,6 +43,12 @@ body {
     color: white;
     font-size: 30px;
     float: left;
+}
+
+
+#floating-panel {
+    float: right;
+    
 }
 
 .col-md-8 {
@@ -53,7 +87,9 @@ body {
     margin: auto;
 }
 
+
 #image-api {
     margin-bottom: 15px !important;
 }
+
 
