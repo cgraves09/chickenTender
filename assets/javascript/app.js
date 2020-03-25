@@ -17,7 +17,7 @@ function showPosition(position) {
 };
 
 // Location Code End; Working.
-// new
+
 // Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
   var userCoords = userLat + "," + userLon;
