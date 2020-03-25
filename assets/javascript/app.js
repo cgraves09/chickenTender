@@ -30,8 +30,9 @@ function callGoogleApi() {
       method: 'GET'
     }).then(function (response) {
       console.log(response);
-      initMap();
-    })}
+    })
+    initMap();
+}
 
   // Google Maps API Code End; Display Map but not specific location yet.
 
