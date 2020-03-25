@@ -1,7 +1,4 @@
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
-var userCoords = userLat + userLon;
-var destinationCoords = locationLat + locationLon;
-var apiKey = 'AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E';
 var userLat = '';
 var userLon = '';
 
@@ -23,15 +20,19 @@ function showPosition(position) {
 
 // Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
-    var queryURL =  'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?units=imperial&origin=' + userCoords + '&destination=' + destinationCoords +'&key=' + apiKey;
+  var userCoords = userLat + "," + userLon;
+  var destinationCoords = locationLat + "," + locationLon;
+  var apiKey = 'AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E';
+  var queryURL =  'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?units=imperial&origin=' + userCoords + '&destination=' + destinationCoords +'&key=' + apiKey;
     $.ajax({
       url: queryURL,
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
       console.log(response);
-      initMap();
-    })}
+    })
+    initMap();
+}
 
   // Google Maps API Code End; Display Map but not specific location yet.
 
@@ -62,7 +63,7 @@ function callGoogleApi() {
     });
   }
 
-callGoogleApi();
+
 // Initialize Map Code End
 
 $('#user-name-input').modal('show');
@@ -257,7 +258,7 @@ function retrieve (){
                 snapRow.append(finalImage,finalName,finalCategory,finalRating,finalPrice);
                 $('#match').append(snapRow)
                 $('#itsAMatch').modal('show');
-                
+                callGoogleApi();
             };
         });
         $('#hate-btn').click(function(event){
