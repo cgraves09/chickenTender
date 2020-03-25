@@ -4,18 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chicken Tender</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.js"
-      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/8fa7cf4c81.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
 
@@ -99,11 +91,85 @@
 
         <div class="col-md-8">
           <div class="card-header">
-            <h5>Partner 1 picks 3 of the following choices:</h5>
-            <div id="results"></div>
+
+            <div id="results-title"></div>
+            <div id="results">
+              <img src="assets/images/where-to-eat.gif">
+            </div>
           </div>
         </div>
       </div>
+      <!-- Modal Test for user name input -->
+      <div class="modal fade" id="user-name-input" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Welcome to Chicken Tender, we are here to save your relationship. Lets get to know each other tell us your names</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Ladys Name:</label>
+                  <input type="text" class="form-control" id="first-user">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Gentalmans Name:</label>
+                  <input type="text" class="form-control" id="second-user">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="user-name-input-btn" type="button" class="btn btn-primary">Lets get this party started!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Test for changing users -->
+      <div id="next-user" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="next-user-title" class="modal-title"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p id="next-user-text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"onclick="retrieve()">LETS DO THIS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Test for Final match -->
+      <div class="modal fade" id="itsAMatch" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Its A MATCH!! </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="match" class="modal-body"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+            <h5>Partner 1 picks 3 of the following choices:</h5>
+            <div id="results"></div>
+
+          </div>
+        </div>
+      </div>
+            
+      
 
       <!--the geo map will be heald on the left and the timer will be held on the right-->
 
@@ -116,6 +182,9 @@
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="assets/javascript/app.js"></script>
+    
   </body>
 </html>
