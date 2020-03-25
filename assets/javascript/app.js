@@ -51,6 +51,26 @@ function callGoogleApi() {
         });
       }
 
+   // Initialize Map Function Code
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 7,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: userLat + userLon
+    });
+
+    directionsRenderer.setMap(map);
+    directionsRenderer.setPanel(document.getElementById('floating-panel'));
+
+    var request = {
+      origin: userLat + userLon,
+      destination: locationLon + locationLat,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         console.log(userLat)
         console.log(locationLat)
