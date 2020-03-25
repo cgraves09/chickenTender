@@ -1,4 +1,10 @@
+
+ // Patrick changes Start
+
+// Upon loading page, will request user location immediately instead of using a zip code input
+
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
+
 var userLat = '';
 var userLon = '';
 
@@ -51,6 +57,26 @@ function callGoogleApi() {
         });
       }
 
+   // Initialize Map Function Code
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 7,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: userLat + userLon
+    });
+
+    directionsRenderer.setMap(map);
+    directionsRenderer.setPanel(document.getElementById('floating-panel'));
+
+    var request = {
+      origin: userLat + userLon,
+      destination: locationLon + locationLat,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+
+
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         console.log(userLat)
         console.log(locationLat)
@@ -80,8 +106,13 @@ $('#user-name-input').modal('show');
 var counter = 0;
 var offset = 0;
 var option = 0;
+
+var loveBtn = $('<button id="love-btn" class="btn btn-warning m-auto"> LOVE IT  </button>')
+var hateBtn = $('<button id="hate-btn" class="btn btn-warning m-auto"> HATE IT </button>')
+
 var loveBtn = $('<br> <i id="love-btn" class="fab fa-gratipay"></i>')
 var hateBtn = $('<i id="hate-btn" class="far fa-times-circle"></i>')
+
 var locationLon;
 var locationLat;
 var latToString;
@@ -147,6 +178,27 @@ function yelpCall (){
           var divRow = $('<div class="row">')
               // Itirate through the JSON array of 'businesses' which was returned by the API
           for (var i = 0; i < data.businesses.length; i++){
+
+              var image = $('<img id="image-api" class="m-auto" src="' + item[i].image_url + '"height="200" width="200">');
+              var name = $('<h1 id="name-text">' + item[i].name + '</h1>');
+              var rating = $('<h3 id="rating-text"> Rating: ' + item[i].rating + '</h3>');
+              var category = $('<h4 id="category-text">' + item[i].categories[0].title + '</h4>');
+              var price = $('<h5 id="category-text">' + item[i].price + '</h5>');
+              var divCol = $('<div class="col-md-4 choice text-center">');
+              var loveCol =  $('<div class="col-md-2 m-auto p-0 d-flex justify-content-center">');
+              var hateCol =  $('<div class="col-md-2 m-auto p-0 d-flex justify-content-center">');
+              // Attaching tags to the column
+              divCol.attr('name',item[i].name);
+              divCol.attr('rating',item[i].rating);
+              divCol.attr('image',item[i].image_url);
+              divCol.attr('category',item[i].categories[0].title);
+              divCol.attr('latitude',item[i].coordinates.latitude)
+              divCol.attr('longitude',item[i].coordinates.longitude);
+              divCol.append(name,category,rating,price,image);
+              loveCol.append(loveBtn);
+              hateCol.append(hateBtn);
+              divRow.append(hateCol, divCol, loveCol);
+
               // var divCol = $('<div class="col-md-12" choice">')
               var image = $('<img id="image-api" class="col-md-12" src="' + item[i].image_url + '"height="400" width="300">');
               var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
@@ -163,6 +215,7 @@ function yelpCall (){
               divRow.attr('longitude',item[i].coordinates.longitude);
               divRow.append(image,name,category,rating,price,loveBtn,hateBtn);
               // divRow.append(divCol);
+
               
               // Append our result into the page
               $('#results').append(divRow);
