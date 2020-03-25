@@ -41,24 +41,21 @@ function callGoogleApi() {
    
 }
 
-   // Initialize Map Function Code
-  function initMap() {
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: userLat + userLon
-    });
+  // Google Maps API Code End; Display Map but not specific location yet.
+      function initMap() {
+        var directionsRenderer = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: userLat, lng: userLon}
+        });
+        directionsRenderer.setMap(map);
 
-    directionsRenderer.setMap(map);
-    directionsRenderer.setPanel(document.getElementById('floating-panel'));
-
-    var request = {
-      origin: userLat + userLon,
-      destination: locationLon + locationLat,
-      travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+        document.getElementById('mode').addEventListener('change', function() {
+          calculateAndDisplayRoute(directionsService, directionsRenderer);
+        });
+      }
 
 
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
