@@ -1,4 +1,7 @@
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
+var userCoords = userLat + userLon;
+var destinationCoords = locationLat + locationLon;
+var apiKey = 'AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E';
 var userLat = '';
 var userLon = '';
 
@@ -20,13 +23,14 @@ function showPosition(position) {
 
 // Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
-    var queryURL = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?parameters' + '&key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E'
-    // Need to check google maps queryurl specifically for directions, also on html
+    var queryURL =  'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?units=imperial&origin=' + userCoords + '&destination=' + destinationCoords +'&key=' + apiKey;
     $.ajax({
       url: queryURL,
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
+      console.log(response);
+      initMap();
     })}
 
   // Google Maps API Code End; Display Map but not specific location yet.
@@ -46,18 +50,19 @@ function callGoogleApi() {
     var request = {
       origin: userLat + userLon,
       destination: locationLon + locationLat,
-      // Destination needs to be plugged in from yelp API, needs to be confirmed
       travelMode: google.maps.DirectionsTravelMode.DRIVING
     };
 
     directionsService.route(request, function(result, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsRenderer.setDirections(result);
+        console.log(result);
+        console.log(status);
       }
     });
   }
 
-
+callGoogleApi();
 // Initialize Map Code End
 
 $('#user-name-input').modal('show');
