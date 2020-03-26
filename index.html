@@ -94,7 +94,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Welcome to Chicken Tender, we are here to save your relationship. Lets get to know each other tell us your names</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Welcome to Chicken Tender, we are here to save your relationship. Let's get to know each other, tell us your names</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -102,21 +102,20 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Ladys Name:</label>
+                  <label for="recipient-name" class="col-form-label">Ladies Name:</label>
                   <input type="text" class="form-control" id="first-user">
                 </div>
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Gentalmans Name:</label>
+                  <label for="recipient-name" class="col-form-label">Gentleman's Name:</label>
                   <input type="text" class="form-control" id="second-user">
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button id="user-name-input-btn" type="button" class="btn btn-primary">Lets get this party started!</button>
+              <button id="user-name-input-btn" type="button" class="btn btn-primary">Let's get this party started!</button>
             </div>
 
           </div>
-          <div id="results"></div>
         </div>
       </div>
       <!-- Modal Test for changing users -->
@@ -133,7 +132,7 @@
               <p id="next-user-text"></p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary"onclick="retrieve()">LETS DO THIS</button>
+              <button type="button" class="btn btn-primary"data-dismiss="modal">LET'S DO THIS</button>
             </div>
           </div>
         </div>
@@ -143,15 +142,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Its A MATCH!! </h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">It's A MATCH!! </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div id="match" class="modal-body"></div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary"data-dismiss="modal">Let's Eat</button>
             </div>
 
 
@@ -165,15 +163,6 @@
 
       <div class="row">
         <div class="col-md-4">
-          <div id="floating-panel">
-            <b>Mode of Travel: </b>
-            <select id="mode">
-              <option value="DRIVING">Driving</option>
-              <option value="WALKING">Walking</option>
-              <option value="BICYCLING">Bicycling</option>
-              <option value="TRANSIT">Transit</option>
-            </select>
-            </div>
             <div id="map"></div>
         </div>
         <div class="col-md-2"></div>
@@ -181,8 +170,5 @@
       </div>
     </div>
     <script src="assets/javascript/app.js"></script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2qa5fEXAtZH6a4G_heRRbb7DVHB3pk8E&callback=callGoogleApi" async defer></script>
-
   </body>
 </html>
