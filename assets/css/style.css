@@ -13,7 +13,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    
   }
+
   #floating-panel {
     position: absolute;
     top: 10px;
@@ -35,33 +37,60 @@ body {
 
 .header {
     background-color: #FE4A49;
-    height: 50px;
+    height: 70px;
 }
 
 .row {
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
 }
 
 #logo {
     color: white;
     font-size: 30px;
     float: left;
+    margin-left: 10px;
 }
 
-
-#floating-panel {
+p {
+    font-style: italic;
+    margin: auto;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
     float: right;
-    
+}
+
+span {
+    color: #FED766;
+    font-family: Brush Script MT;
+    font-size: 50px;
+}
+
+i {
+    font-family: Gill Sans;
 }
 
 .col-md-8 {
-    border: 2px solid #e6e6ea;
+    /* border: 2px solid #e6e6ea; */
     padding: 0;
 }
 
 #submit, #love-btn, #hate-btn {
     background-color: #2AB7CA;
     border-color: 1px solid #FED766;
+}
+
+#love-btn {
+    font-size: 80px;
+    margin: auto;
+}
+
+#hate-btn {
+    float: left;
 }
 
 #submit:hover, #love-btn:hover, #hate-btn:hover {

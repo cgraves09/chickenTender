@@ -80,8 +80,8 @@ $('#user-name-input').modal('show');
 var counter = 0;
 var offset = 0;
 var option = 0;
-var loveBtn = $('<br> <i id="love-btn" class="fab fa-gratipay"></i>')
-var hateBtn = $('<i id="hate-btn" class="far fa-times-circle"></i>')
+var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
+var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
 var locationLon;
 var locationLat;
 var latToString;
@@ -148,7 +148,7 @@ function yelpCall (){
               // Itirate through the JSON array of 'businesses' which was returned by the API
           for (var i = 0; i < data.businesses.length; i++){
               // var divCol = $('<div class="col-md-12" choice">')
-              var image = $('<img id="image-api" class="col-md-12" src="' + item[i].image_url + '"height="400" width="300">');
+              var image = $('<img id="image-api" class="col-md-8" src="' + item[i].image_url + '"height="400" width="300">');
               var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
               var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
               var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
@@ -161,12 +161,12 @@ function yelpCall (){
               divRow.attr('category',item[i].categories[0].title);
               divRow.attr('latitude',item[i].coordinates.latitude)
               divRow.attr('longitude',item[i].coordinates.longitude);
-              divRow.append(image,name,category,rating,price,loveBtn,hateBtn);
-              // divRow.append(divCol);
+              divRow.append(hateBtn,image,loveBtn,name,category,rating,price,);
+             // divRow.append(divCol);
               
               // Append our result into the page
               $('#results').append(divRow);
-              $('#results').slideDown(2000);
+              $('#results').slideDown(5000);
           } 
           // conditional if yelp api doesnt return anymore businesses
           if (item.length === 0){
@@ -208,7 +208,7 @@ function yelpCall (){
             option = 1;
             retrieve();
             } else {
-              $('#results').slideUp(500);
+              $('#results').slideUp(5000);
               yelpCall();
               
             };
