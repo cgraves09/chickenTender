@@ -41,7 +41,7 @@ function callGoogleApi() {
         var directionsService = new google.maps.DirectionsService;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
-          center: {lat: userLat, lng: userLon}
+          center: {lat: userLat, lng: userLon},
         });
         directionsRenderer.setMap(map);
 
@@ -54,7 +54,7 @@ function callGoogleApi() {
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         console.log(userLat)
         console.log(locationLat)
-        var selectedMode = document.getElementById('mode').value;
+        var selectedMode = 'DRIVING';
         directionsService.route({
           origin: {lat: userLat, lng: userLon},  // Haight.
           destination: {lat: locationLat, lng: locationLon},  // Ocean Beach.
@@ -156,6 +156,7 @@ function yelpCall (){
               
               // Attaching tags to the column
               divRow.attr('name',item[i].name);
+              divRow.attr('price', item[i].price);
               divRow.attr('rating',item[i].rating);
               divRow.attr('image',item[i].image_url);
               divRow.attr('category',item[i].categories[0].title);
@@ -172,7 +173,7 @@ function yelpCall (){
           if (item.length === 0){
             $('#results').empty();
             $('#results-title').empty();
-            $('#results-title').append('<h5>Okay halfway there...Pick from the follwing choices:</h5>')
+            $('#results-title').append('<h5>Okay halfway there...Pick from the following choices:</h5>')
             counter = 0;
             option = 1;
             $('#next-user-title').text('Hi ' + secondUser );
@@ -189,6 +190,7 @@ function yelpCall (){
             // pushing items to the firebase console
             database.ref('options' + option + latToString).push({
             name: $(divRow).attr('name'),
+            price: $(divRow).attr('price'),
             category: $(divRow).attr('category'),
             rating: $(divRow).attr('rating'),
             image: $(divRow).attr('image'),
@@ -200,7 +202,7 @@ function yelpCall (){
             if (option === 2) {
             $('#results').empty();
             $('#results-title').empty();
-            $('#results-title').append('<h5>Okay halfway there...Pick from the follwing choices:</h5>')
+            $('#results-title').append('<h5>Okay halfway there...Pick from the following choices:</h5>')
             $('#next-user-title').text('Hi ' + secondUser );
             $('#next-user-text').text('Okay she made her choices, lets not mess this up...')
             $('#next-user').modal('show');  
@@ -217,7 +219,7 @@ function yelpCall (){
          $('#hate-btn').click(function(event){
            event.preventDefault();
            offset++;
-           $('#results').slideUp(2000);
+           $('#results').slideUp(500);
            yelpCall();
         })
       }      
@@ -230,7 +232,7 @@ function retrieve (){
     // retrieving data set from user selections
     database.ref('options' + option + latToString).on('child_added', function(snapshot){
         var snapName = $('<h1 id="name-text"class="col-md-6">' + snapshot.val().name + '</h1>');
-        var snapPrice = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().price + '</h5>')
+        var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
         var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
         var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
         var snapImage = $('<img id="image-api" class="col-md-12" src="' + snapshot.val().image + '"height="400" width="300">');
@@ -263,12 +265,15 @@ function retrieve (){
                 $('#results-title').empty();
                 clearData();
                 var finalName = $('<h1 id="name-text"class="col-md-6">' + $(snapRow).attr('name') + '</h1>');
-                var finalPrice = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('price') + '</h5>');
+                var finalPrice = $('<h5 id="category-text" class="col-md-6">Price: ' + $(snapRow).attr('price') + '</h5>');
                 var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
                 var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
                 var finalImage = $('<img id="image-api" class="col-md-12" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
                 snapRow.append(finalImage,finalName,finalCategory,finalRating,finalPrice);
-                $('#match').append(snapRow)
+                $('#results').append(snapRow)
+                var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
+                $('#match').append(matchGif);
+                $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>')
                 $('#itsAMatch').modal('show');
                 callGoogleApi();
             };
