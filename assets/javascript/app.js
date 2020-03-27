@@ -84,9 +84,60 @@ var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
 var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
 var locationLon;
 var locationLat;
-var latToString;
+var ranNum;
 var firstUser;
 var secondUser;
+var dataFoodImage;
+var americanFoodImage = ["assets/images/american/1.jpeg","assets/images/american/2.jpeg","assets/images/american/3.jpeg","assets/images/american/4.jpeg","assets/images/american/5.png","assets/images/american/6.jpeg","assets/images/american/7.jpg","assets/images/american/8.jpg","assets/images/american/9.jpg","assets/images/american/10.jpg"];
+var mexicanFoodImage = ["assets/images/mexican/1.jpg","assets/images/mexican/2.jpg","assets/images/mexican/3.jpg","assets/images/mexican/4.jpeg","assets/images/mexican/5.jpg","assets/images/mexican/6.jpeg","assets/images/mexican/7.jpg","assets/images/mexican/8.png","assets/images/mexican/9.jpg","assets/images/mexican/10.jpeg"];
+var thaiFoodImage = ["assets/images/thai/1.png","assets/images/thai/2.jpeg","assets/images/thai/3.jpeg","assets/images/thai/4.png","assets/images/thai/5.jpg","assets/images/thai/6.jpeg","assets/images/thai/7.jpg","assets/images/thai/8.jpg","assets/images/thai/9.jpg","assets/images/thai/10.png"];
+var greekFoodImage = ["assets/images/greek/1.png","assets/images/greek/2.jpg","assets/images/greek/3.png","assets/images/greek/4.jpg","assets/images/greek/5.jpg","assets/images/greek/6.jpeg","assets/images/greek/7.jpg","assets/images/greek/8.jpeg","assets/images/greek/9.jpeg","assets/images/greek/10.jpg"];
+var indianFoodImage = ["assets/images/indian/1.jpg","assets/images/indian/2.jpeg","assets/images/indian/3.png","assets/images/indian/4.jpeg","assets/images/indian/5.jpeg","assets/images/indian/6.png","assets/images/indian/7.jpeg","assets/images/indian/8.png","assets/images/indian/9.jpg","assets/images/indian/10.png"];
+var chineseFoodImage = ["assets/images/chinese/1.jpg","assets/images/chinese/2.jpg","assets/images/chinese/3.jpg","assets/images/chinese/4.jpg","assets/images/chinese/5.gif","assets/images/chinese/6.jpg","assets/images/chinese/7.jpg","assets/images/chinese/8.jpg","assets/images/chinese/9.jpeg","assets/images/chinese/10.jpg"];
+var italianFoodImage = ["assets/images/italian/1.png","assets/images/italian/2.jpg","assets/images/italian/3.jpeg","assets/images/italian/4.jpg","assets/images/italian/5.jpeg","assets/images/italian/6.jpeg","assets/images/italian/7.jpeg","assets/images/italian/8.jpg","assets/images/italian/9.jpg","assets/images/italian/10.jpeg"]
+var imageCounter = 0
+var foodImage;
+// Function for selecting the images
+function imageSelector (){
+  if ($("#input-categories").val() === 'American'){
+    foodImage = $('<img class="col-md-12" src="' + americanFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = americanFoodImage[imageCounter]
+    return foodImage, dataFoodImage
+  }
+  else if ($("#input-categories").val() === 'Mexican'){
+    foodImage = $('<img class="col-md-12" src="' + mexicanFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = mexicanFoodImage[imageCounter]
+    return foodImage
+  }
+    else if ($("#input-categories").val() === 'Thai'){
+    foodImage = $('<img class="col-md-12" src="' + thaiFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = thaiFoodImage[imageCounter]
+    return foodImage, dataFoodImage 
+  }
+    else if ($("#input-categories").val() === 'Greek'){
+    foodImage = $('<img class="col-md-12" src="' + greekFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = greekFoodImage[imageCounter]
+    return foodImage, dataFoodImage 
+  }
+    else if ($("#input-categories").val() === 'Indian'){
+    foodImage = $('<img class="col-md-12" src="' + indianFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = indianFoodImage[imageCounter]
+    return foodImage, dataFoodImage 
+  }
+    else if ($("#input-categories").val() === 'Chinese'){
+    foodImage = $('<img class="col-md-12" src="' + chineseFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = chineseFoodImage[imageCounter]
+    return foodImage, dataFoodImage 
+  }
+    else if ($("#input-categories").val() === 'Italian'){
+    foodImage = $('<img class="col-md-12" src="' + italianFoodImage[imageCounter]+ '"height="400" width="300">')
+    dataFoodImage = italianFoodImage[imageCounter]
+    return foodImage, dataFoodImage 
+  }
+
+}
+
+
 // firebase config
 var firebaseConfig = {
     apiKey: "AIzaSyCF-udTyqxcouGmz7SBrpB7Jr2BhdThzPg",
@@ -113,7 +164,7 @@ $('#user-name-input-btn').click(function() {
 // submit button to activate Yelp API call
 $('#submit').click(function(event){
   event.preventDefault();
-  latToString = Math.floor(Math.random()*50);
+  ranNum = Math.floor(Math.random()*50);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
   // calling yelp api
   yelpCall();
@@ -143,31 +194,42 @@ function yelpCall (){
           $('#results').empty();
           console.log(data.businesses)
           var item = data.businesses;
-          // If our results are greater than 0, continue
+          
           var divRow = $('<div class="row">')
               // Itirate through the JSON array of 'businesses' which was returned by the API
           for (var i = 0; i < data.businesses.length; i++){
+
+
               // var divCol = $('<div class="col-md-12" choice">')
-              var image = $('<img id="image-api" class="col-md-8" src="' + item[i].image_url + '"height="400" width="300">');
               var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
               var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
               var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
               var price = $('<h5 id="category-text" class="col-md-6"> Price: ' + item[i].price + '</h5>');
+
+              // conditional if price comes back as undefined
+              if (item[i].price === undefined){
+                item[i].price = 'N/A'
+                price = $('<h5 id="category-text" class="col-md-6"> Price: ' + item[i].price + '</h5>');
+              }
+              console.log(item[i].price)
+              imageSelector();
               
+
               // Attaching tags to the column
               divRow.attr('name',item[i].name);
               divRow.attr('price', item[i].price);
               divRow.attr('rating',item[i].rating);
-              divRow.attr('image',item[i].image_url);
+              divRow.attr('image',dataFoodImage);
               divRow.attr('category',item[i].categories[0].title);
               divRow.attr('latitude',item[i].coordinates.latitude)
               divRow.attr('longitude',item[i].coordinates.longitude);
-              divRow.append(hateBtn,image,loveBtn,name,category,rating,price,);
-             // divRow.append(divCol);
+
+             divRow.append(hateBtn,foodImage,loveBtn,name,price,rating,);
+      
               
               // Append our result into the page
               $('#results').append(divRow);
-              $('#results').slideDown(5000);
+              $('#results').slideDown(2000);
           } 
           // conditional if yelp api doesnt return anymore businesses
           if (item.length === 0){
@@ -187,8 +249,9 @@ function yelpCall (){
             counter++ 
             offset++;
             option++;
+            imageCounter++;
             // pushing items to the firebase console
-            database.ref('options' + option + latToString).push({
+            database.ref('options' + option + ranNum).push({
             name: $(divRow).attr('name'),
             price: $(divRow).attr('price'),
             category: $(divRow).attr('category'),
@@ -210,7 +273,7 @@ function yelpCall (){
             option = 1;
             retrieve();
             } else {
-              $('#results').slideUp(5000);
+              $('#results').slideUp(500);
               yelpCall();
               
             };
@@ -219,6 +282,7 @@ function yelpCall (){
          $('#hate-btn').click(function(event){
            event.preventDefault();
            offset++;
+           imageCounter++;
            $('#results').slideUp(500);
            yelpCall();
         })
@@ -230,7 +294,7 @@ function retrieve (){
   $('#results').empty();
     var snapRow = $('<div class="row">');
     // retrieving data set from user selections
-    database.ref('options' + option + latToString).on('child_added', function(snapshot){
+    database.ref('options' + option + ranNum).on('child_added', function(snapshot){
         var snapName = $('<h1 id="name-text"class="col-md-6">' + snapshot.val().name + '</h1>');
         var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
         var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
@@ -243,7 +307,7 @@ function retrieve (){
         snapRow.attr('rating',snapshot.val().rating);
         snapRow.attr('image',snapshot.val().image);
         snapRow.attr('price',snapshot.val().price);
-        snapRow.append(snapImage,snapName,snapCategory,snapRating,snapPrice,loveBtn,hateBtn);
+        snapRow.append(snapImage,snapName,snapPrice,loveBtn,hateBtn);
         locationLon = parseFloat(lonNum);
         locationLat = parseFloat(latNum);
         console.log(locationLon);
@@ -290,16 +354,16 @@ function retrieve (){
 
 // function to clear firebase database
 function clearData (){
-    database.ref('options' + 1 + latToString).remove();
-    database.ref('options' + 2 + latToString).remove();
-    database.ref('options' + 3 + latToString).remove();
-    database.ref('options' + 4 + latToString).remove();
-    database.ref('options' + 5 + latToString).remove();
-    database.ref('options' + 6 + latToString).remove();
-    database.ref('options' + 7 + latToString).remove();
-    database.ref('options' + 8 + latToString).remove();
-    database.ref('options' + 9 + latToString).remove();
-    database.ref('options' + 10 + latToString).remove();
+    database.ref('options' + 1 + ranNum).remove();
+    database.ref('options' + 2 + ranNum).remove();
+    database.ref('options' + 3 + ranNum).remove();
+    database.ref('options' + 4 + ranNum).remove();
+    database.ref('options' + 5 + ranNum).remove();
+    database.ref('options' + 6 + ranNum).remove();
+    database.ref('options' + 7 + ranNum).remove();
+    database.ref('options' + 8 + ranNum).remove();
+    database.ref('options' + 9 + ranNum).remove();
+    database.ref('options' + 10 + ranNum).remove();
 }
 
 // Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
