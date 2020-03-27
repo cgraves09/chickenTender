@@ -80,8 +80,8 @@ $('#user-name-input').modal('show');
 var counter = 0;
 var offset = 0;
 var option = 0;
-var loveBtn = $('<br> <i id="love-btn" class="fab fa-gratipay"></i>')
-var hateBtn = $('<i id="hate-btn" class="far fa-times-circle"></i>')
+var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
+var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
 var locationLon;
 var locationLat;
 var ranNum;
@@ -198,6 +198,9 @@ function yelpCall (){
           var divRow = $('<div class="row">')
               // Itirate through the JSON array of 'businesses' which was returned by the API
           for (var i = 0; i < data.businesses.length; i++){
+
+
+              // var divCol = $('<div class="col-md-12" choice">')
               var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
               var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
               var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
@@ -220,8 +223,9 @@ function yelpCall (){
               divRow.attr('category',item[i].categories[0].title);
               divRow.attr('latitude',item[i].coordinates.latitude)
               divRow.attr('longitude',item[i].coordinates.longitude);
-              divRow.append(foodImage,name,price,rating,loveBtn,hateBtn);
-              
+
+             divRow.append(hateBtn,foodImage,loveBtn,name,price,rating,);
+      
               
               // Append our result into the page
               $('#results').append(divRow);
