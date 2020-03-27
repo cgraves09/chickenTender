@@ -100,37 +100,37 @@ function callGoogleApi() {
 // Function for selecting the images
 function imageSelector (){
   if ($("#input-categories").val() === 'American'){
-    foodImage = $('<img class="col-md-12" src="' + americanFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + americanFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = americanFoodImage[imageCounter]
     return foodImage, dataFoodImage
   }
   else if ($("#input-categories").val() === 'Mexican'){
-    foodImage = $('<img class="col-md-12" src="' + mexicanFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + mexicanFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = mexicanFoodImage[imageCounter]
     return foodImage
   }
     else if ($("#input-categories").val() === 'Thai'){
-    foodImage = $('<img class="col-md-12" src="' + thaiFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + thaiFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = thaiFoodImage[imageCounter]
     return foodImage, dataFoodImage 
   }
     else if ($("#input-categories").val() === 'Greek'){
-    foodImage = $('<img class="col-md-12" src="' + greekFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + greekFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = greekFoodImage[imageCounter]
     return foodImage, dataFoodImage 
   }
     else if ($("#input-categories").val() === 'Indian'){
-    foodImage = $('<img class="col-md-12" src="' + indianFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + indianFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = indianFoodImage[imageCounter]
     return foodImage, dataFoodImage 
   }
     else if ($("#input-categories").val() === 'Chinese'){
-    foodImage = $('<img class="col-md-12" src="' + chineseFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + chineseFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = chineseFoodImage[imageCounter]
     return foodImage, dataFoodImage 
   }
     else if ($("#input-categories").val() === 'Italian'){
-    foodImage = $('<img class="col-md-12" src="' + italianFoodImage[imageCounter]+ '"height="400" width="300">')
+    foodImage = $('<img class="col-md-7" src="' + italianFoodImage[imageCounter]+ '"height="400" width="300">')
     dataFoodImage = italianFoodImage[imageCounter]
     return foodImage, dataFoodImage 
   }
@@ -253,7 +253,7 @@ function yelpCall (){
           longitude: $(divRow).attr('longitude')
         });
 
-        if (option === 2) {
+        if (option === 3) {
           $('#results').empty();
           $('#results-title').empty();
           $('#results-title').append('<h5>Okay halfway there...Pick from the following choices:</h5>')
@@ -289,7 +289,7 @@ function retrieve (){
     var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
     var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
     var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
-    var snapImage = $('<img id="image-api" class="col-md-12" src="' + snapshot.val().image + '"height="400" width="300">');
+    var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
     snapRow.attr('name',snapshot.val().name);
@@ -297,7 +297,7 @@ function retrieve (){
     snapRow.attr('rating',snapshot.val().rating);
     snapRow.attr('image',snapshot.val().image);
     snapRow.attr('price',snapshot.val().price);
-    snapRow.append(snapImage,snapName,snapPrice,loveBtn,hateBtn);
+    snapRow.append(hateBtn,snapImage,loveBtn,snapName,snapPrice,);
     locationLon = parseFloat(lonNum);
     locationLat = parseFloat(latNum);
 
@@ -320,7 +320,7 @@ function retrieve (){
         var finalPrice = $('<h5 id="category-text" class="col-md-6">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
         var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
-        var finalImage = $('<img id="image-api" class="col-md-12" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
+        var finalImage = $('<img id="image-api" class="col-md-10" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
         snapRow.append(finalImage,finalName,finalCategory,finalRating,finalPrice);
         $('#results').append(snapRow)
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
