@@ -22,6 +22,8 @@ var aboutText;
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
 var userLon = '';
+var startTime = 0;
+var endTime = 0;
 // Inital Modal for User Names
 $('#user-name-input').modal('show');
 
@@ -161,6 +163,7 @@ $('#user-name-input-btn').click(function() {
   firstUser = $('#first-user').val();
   secondUser = $('#second-user').val();
   $('#user-name-input').modal('hide');
+  startTime = Date.now();
 });
 
 // submit button to activate Yelp API call
@@ -332,6 +335,10 @@ function retrieve (){
         $('#match').append(matchGif);
         $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>')
         $('#itsAMatch').modal('show');
+        endTime = Date.now();
+        $('#lets-eat-btn').click(function(){
+          window.timeSpent = endTime - startTime;
+        })
         callGoogleApi();
       };
     });
