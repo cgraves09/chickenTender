@@ -2,50 +2,82 @@
 var counter = 0;
 var offset = 0;
 var option = 0;
+var aboutCounter = 0
 var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
 var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
+var lineBreak = $('<hr id="line-break">')
 var locationLon;
 var locationLat;
 var ranNum;
 var firstUser;
 var secondUser;
 var dataAboutMe;
-var lineBreak = $('<hr id="line-break">')
-var americanAbout = ['"Medium rare.  Thick.  Made just for you.  I like nibbles and bites.  Don’t be afraid to tell me your dirty desires.  Burger doesn’t judge.  Burger understands."',
-'"I’m pillowy, squishy, and tender, with tight but soft buns.  Unwrap me and take in all the juices I have to offer.", “Not bragging, but I have layers upon layers of succulent, moist meat between two soft buns.  I’m also faster than delivery"',
-'"Somebody call for six inches of heaven?  I’m all beef and ready to meat.  You bring the condoments?  Just joking, ketchup and mustard are fine."'];
-var mexicanAbout = ['“My tortilla is hot and ready to be filled with some juicy, flavorful meat."','"How would you like to make my soft taco hard?  Let’s tacoboutit."',
-'"I got gas today for $1.39, unfortunately it was at Taco Bell."'];
-var thaiAbout = ['"If you’re trying Thai food for the first time, you’re gonna have a pad thai."','"If you’re looking for something hot, spicy, and full of intense, burning heat then look no further.  Btw, you’ll regret eating me tomorrow, but life is about the moment, right?"',
-'"This place is more romantic than Thaitanic."'];
+var aboutText;
+var timeoutHandle;
+// Variable array for about section of restaurants
+var americanAbout = ['"Medium rare.  Thick.  Made just for you.  I like nibbles and bites.  Don’t be afraid to tell me your dirty desires.  Burger doesn’t judge.  Burger understands."','"I’m pillowy, squishy, and tender, with tight but soft buns.  Unwrap me and take in all the juices I have to offer.", “Not bragging, but I have layers upon layers of succulent, moist meat between two soft buns.  I’m also faster than delivery"','"Somebody call for six inches of heaven?  I’m all beef and ready to meat.  You bring the condoments?  Just joking, ketchup and mustard are fine."'];
+var mexicanAbout = ['“My tortilla is hot and ready to be filled with some juicy, flavorful meat."','"How would you like to make my soft taco hard?  Let’s tacoboutit."','"I got gas today for $1.39, unfortunately it was at Taco Bell."'];
+var thaiAbout = ['"If you’re trying Thai food for the first time, you’re gonna have a pad thai."','"If you’re looking for something hot, spicy, and full of intense, burning heat then look no further.  Btw, you’ll regret eating me tomorrow, but life is about the moment, right?"','"This place is more romantic than Thaitanic."'];
 var greekAbout = ['"My Big Fat Greek Takeout Order"','"It’s time to come out, I am a hummusexual."','"Why be with a zero, when you can get with this gyro"'];
 var indianAbout = ['"You know how many Indian food jokes I know?  Naan"','"I cannot comment on your mother, because cows are sacred in my country."','"Love burns, better bring some pepto bismo."'];
 var chineseAbout = ['"My girlfriend hated my obsession with Chinese food. Sushi left me."','"I don’t always eat Chinese food, but when I do, I get hungry again an hour later"','"Call me, you’ve got me wonton more already."'];
 var italianAbout = ['"Wanna see my cannoli?"', '"Let’s do it, life is about exploring all the pastabilities."', '"Wanna hear an Italian Star Wars joke?  I like my pasta cooked until delicately Chewy."']
-var aboutCounter = 0
-var aboutText;
-var timeoutHandle;
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
 var userLon = '';
+
+// firebase config
+var firebaseConfig = {
+  apiKey: "AIzaSyCF-udTyqxcouGmz7SBrpB7Jr2BhdThzPg",
+  authDomain: "chickentender-e2f0a.firebaseapp.com",
+  databaseURL: "https://chickentender-e2f0a.firebaseio.com",
+  projectId: "chickentender-e2f0a",
+  storageBucket: "chickentender-e2f0a.appspot.com",
+  messagingSenderId: "191417021703",
+  appId: "1:191417021703:web:36a00686478c272845c1a2"
+};
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+var database = firebase.database();
+
 // Inital Modal for User Names
 $('#user-name-input').modal('show');
 
 getLocation();
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    }
-}
+// User Name Values Function
+$('#user-name-input-btn').click(function() {
+  firstUser = $('#first-user').val();
+  secondUser = $('#second-user').val();
+  $('#user-name-input').modal('hide');
+});
 
-function showPosition(position) {
+// submit button to activate Yelp API call
+$('#submit').click(function(event){
+  event.preventDefault();
+  if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
+    return false
+  }
+  audio();
+  ranNum = Math.floor(Math.random()*50);
+  $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
+  // calling yelp api
+  yelpCall();
+});
+
+// Geo Location Function for users location 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+  function showPosition(position) {
     userLat = position.coords.latitude
     userLon = position.coords.longitude
     console.log(userLat + " " + userLon)
-};
-
-// Location Code End; Working.
+  };
+}
 
 // Google Maps API Code: Calls the Google Maps API to display the map.  
 function callGoogleApi() {
@@ -65,40 +97,37 @@ function callGoogleApi() {
 }
 
   // Google Maps API Code End; Display Map but not specific location yet.
-      function initMap() {
-        var directionsRenderer = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: {lat: userLat, lng: userLon},
-        });
-        directionsRenderer.setMap(map);
+function initMap() {
+  var directionsRenderer = new google.maps.DirectionsRenderer;
+  var directionsService = new google.maps.DirectionsService;
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: {lat: userLat, lng: userLon},
+  });
+  directionsRenderer.setMap(map);
 
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-        document.getElementById('mode').addEventListener('change', function() {
-          calculateAndDisplayRoute(directionsService, directionsRenderer);
-        });
+  calculateAndDisplayRoute(directionsService, directionsRenderer);
+  document.getElementById('mode').addEventListener('change', function() {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  });
       }
 
-      function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-        console.log(userLat)
-        console.log(locationLat)
-        var selectedMode = 'DRIVING';
-        directionsService.route({
-          origin: {lat: userLat, lng: userLon},  // Haight.
-          destination: {lat: locationLat, lng: locationLon},  // Ocean Beach.
-          // Note that Javascript allows us to access the constant
-          // using square brackets and a string value as its
-          // "property."
-          travelMode: google.maps.TravelMode[selectedMode]
-        }, function(response, status) {
+  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    console.log(userLat)
+    console.log(locationLat)
+    var selectedMode = 'DRIVING';
+    directionsService.route({
+      origin: {lat: userLat, lng: userLon},  
+      destination: {lat: locationLat, lng: locationLon}, 
+      travelMode: google.maps.TravelMode[selectedMode]
+    }, function(response, status) {
           if (status == 'OK') {
             directionsRenderer.setDirections(response);
           } else {
             window.alert('Directions request failed due to ' + status);
           }
-        });
-      }
+       });
+  }
 
 
 // Initialize Map Code End
@@ -143,43 +172,6 @@ function aboutMeSelector (){
   }
 
 }
-
-
-// firebase config
-var firebaseConfig = {
-    apiKey: "AIzaSyCF-udTyqxcouGmz7SBrpB7Jr2BhdThzPg",
-    authDomain: "chickentender-e2f0a.firebaseapp.com",
-    databaseURL: "https://chickentender-e2f0a.firebaseio.com",
-    projectId: "chickentender-e2f0a",
-    storageBucket: "chickentender-e2f0a.appspot.com",
-    messagingSenderId: "191417021703",
-    appId: "1:191417021703:web:36a00686478c272845c1a2"
-  };
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-var database = firebase.database();
-
-// User Name Values Function
-$('#user-name-input-btn').click(function() {
-  firstUser = $('#first-user').val();
-  secondUser = $('#second-user').val();
-  $('#user-name-input').modal('hide');
-});
-
-// submit button to activate Yelp API call
-$('#submit').click(function(event){
-  event.preventDefault();
-  if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
-    return false
-  }
-  audio();
-  ranNum = Math.floor(Math.random()*50);
-  $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
-  // calling yelp api
-  yelpCall();
-});
 
 // yelp api call
 function yelpCall (){
@@ -302,9 +294,7 @@ function yelpCall (){
     });
 };
 
-// function for countdown timer (two minutes), next is to add something when it reaches 0.
-
-
+// retrive function from firebase storage
 function retrieve (){
   $('#results').empty();
   var snapRow = $('<div class="row">');
@@ -395,11 +385,7 @@ function clearData (){
 
 // function for audio 
 function audio () {
-    var audio = document.getElementById('myAudio');
-
-    audio.play();
+  var audio = document.getElementById('myAudio');
+  audio.play();
 };
-
-// Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
-
-//   create a timer function to start once user inputs zip code and clicks submit   
+ 
