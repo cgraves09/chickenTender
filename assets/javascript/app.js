@@ -171,6 +171,9 @@ $('#user-name-input-btn').click(function() {
 // submit button to activate Yelp API call
 $('#submit').click(function(event){
   event.preventDefault();
+  if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
+    return false
+  }
   audio();
   ranNum = Math.floor(Math.random()*50);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
