@@ -197,7 +197,7 @@ function yelpCall (){
       var divRow = $('<div class="row">')
       // Itirate through the JSON array of 'businesses' which was returned by the API
       for (var i = 0; i < data.businesses.length; i++){
-        var image = $('<img class="col-md-12" src="' + item[i].image_url + '"height="400" width="300">')
+        var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
         var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
         var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
         var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
@@ -324,7 +324,7 @@ function retrieve (){
         var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
 
         var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
-        var finalImage = $('<img id="image-api" class="col-md-10" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
+        var finalImage = $('<img id="image-api" class="col-md-7" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
         snapRow.append(finalImage,finalName,finalPrice,finalRating,finalAbout);
 
         $('#results').append(snapRow)
