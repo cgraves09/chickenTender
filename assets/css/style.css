@@ -87,14 +87,10 @@ i {
     border-color: 1px solid #FED766;
 }
 
-#love-btn {
+#love-btn, #hate-btn {
     font-size: 80px;
     margin: auto;
     cursor: pointer;
-}
-
-#hate-btn {
-    float: left;
 }
 
 #submit:hover, #love-btn:hover, #hate-btn:hover {
