@@ -1,6 +1,11 @@
+
 /* new */
 
+#line-break {
+    border: black solid 1px;
+    width: 90%;
 
+}
 
 #map {
     height: 400px;
@@ -56,8 +61,7 @@ body {
 
 p {
     font-style: italic;
-    margin-top: 33px;
-    margin-right: 10px;
+    margin: auto;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     float: right;
@@ -83,7 +87,7 @@ i {
     border-color: 1px solid #FED766;
 }
 
-#love-btn, #hate-btn {
+#love-btn {
     font-size: 80px;
     margin: auto;
     cursor: pointer;
@@ -136,3 +140,5 @@ h6{
 #price-text, #rating-text {
     margin: auto;
 }
+
+
