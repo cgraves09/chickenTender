@@ -137,7 +137,7 @@ function aboutMeSelector (){
     return aboutText, dataAboutMe 
   }
     else if ($("#input-categories").val() === 'Italian'){
-    aboutText = $('<p id="about-text">' + italianAbout[imageCounter]+ '</p>')
+    aboutText = $('<h5 id="about-text">' + italianAbout[aboutCounter]+ '</h5>')
     dataAboutMe = italianAbout[aboutCounter]
     return aboutText, dataAboutMe
   }
@@ -299,33 +299,7 @@ function yelpCall (){
 };
 
 // function for countdown timer (two minutes), next is to add something when it reaches 0.
-function countdown(minutes, seconds) {
-  var seconds = 60;
-  var mins = minutes
 
-  function tick() {
-    var counter = document.getElementById("timer");
-    var current_minutes = mins - 1
-    seconds--;
-    counter.innerHTML =
-      current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-    if (seconds > 0) {
-      timeoutHandle = setTimeout(tick, 1000);
-    } else {
-
-      if (mins > 1) {
-
-        setTimeout(function() {
-          countdown(mins - 1);
-        }, 1000);
-
-      }
-    }
-  }
-  tick();
-}
-
-countdown(2);
 
 function retrieve (){
   $('#results').empty();
