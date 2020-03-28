@@ -203,16 +203,16 @@ function yelpCall (){
       // Itirate through the JSON array of 'businesses' which was returned by the API
       for (var i = 0; i < data.businesses.length; i++){
         var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
-        var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
-        var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
-        var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
-        var price = $('<h5 id="category-text" class="col-md-6"> Price: ' + item[i].price + '</h5>');
+        var name = $('<h2 id="name-text" class="col-md-12">' + item[i].name + '</h2>');
+        var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '</h5>');
+        // var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
+        var price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         var aboutMe = $('<h5 id="about-me" class="col-md-12"> About ' + item[i].name + '</h5>');
         aboutMeSelector();
         // conditional if price comes back as undefined
         if (item[i].price === undefined){
           item[i].price = 'N/A'
-          price = $('<h5 id="category-text" class="col-md-6"> Price: ' + item[i].price + '</h5>');
+          price = $('<h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         }
 
         // Attaching tags to the column
@@ -223,9 +223,13 @@ function yelpCall (){
         divRow.attr('category',item[i].categories[0].title);
         divRow.attr('latitude',item[i].coordinates.latitude);
         divRow.attr('longitude',item[i].coordinates.longitude);
+
+        divRow.append(name,hateBtn,image,loveBtn,price,rating,aboutMe);
+
         divRow.attr('about',dataAboutMe)
         divRow.attr('url',item[i].url)
-        divRow.append(hateBtn,image,loveBtn,name,price,rating,aboutMe,lineBreak,aboutText);
+        
+
 
         // Append our result into the page
         $('#results').append(divRow);
@@ -328,10 +332,11 @@ function retrieve (){
   var snapRow = $('<div class="row">');
   // retrieving data set from user selections
   database.ref('options' + option + ranNum).on('child_added', function(snapshot){
-    var snapName = $('<h1 id="name-text"class="col-md-6">' + snapshot.val().name + '</h1>');
-    var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
-    var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
-    var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
+
+    var snapName = $('<h2 id="name-text"class="col-md-12">' + snapshot.val().name + '</h2>');
+    var snapPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + snapshot.val().price + '</h5>')
+    var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '</h5>');
+    var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
     var snapAboutText = $('<h5 id="about-text">' + snapshot.val().about + '</h5>')
@@ -343,8 +348,10 @@ function retrieve (){
     snapRow.attr('rating',snapshot.val().rating);
     snapRow.attr('image',snapshot.val().image);
     snapRow.attr('price',snapshot.val().price);
+    snapRow.append(snapName,hateBtn,snapImage,loveBtn,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
     snapRow.attr('about',snapshot.val().snapAboutText);
-    snapRow.append(hateBtn,snapImage,loveBtn,snapName,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
+    
+
     locationLon = parseFloat(lonNum);
     locationLat = parseFloat(latNum);
 
@@ -363,14 +370,15 @@ function retrieve (){
         $('#results').empty();
         $('#results-title').empty();
         clearData();
-        var finalName = $('<h1 id="name-text"class="col-md-6">' + $(snapRow).attr('name') + '</h1>');
-        var finalPrice = $('<h5 id="category-text" class="col-md-6">Price: ' + $(snapRow).attr('price') + '</h5>');
+        var finalName = $('<h2 id="name-text"class="col-md-12">' + $(snapRow).attr('name') + '</h2>');
+        var finalPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
-        var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
-        var finalImage = $('<img id="image-api" class="col-md-12" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
+
+        var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
         var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
         var finalAboutText = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('about') + '</h5>');
-        snapRow.append(finalImage,finalName,finalPrice,finalRating,finalAbout,lineBreak,snapAboutText,url);
+        var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
+        snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout);
         $('#results').append(snapRow)
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);

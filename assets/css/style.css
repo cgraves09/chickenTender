@@ -7,11 +7,11 @@
 
 }
 
-
-
 #map {
-    height: 200px;
-  }
+    height: 400px;
+}
+
+
   html, body {
     height: 100%;
     margin: 0;
@@ -90,6 +90,7 @@ i {
 #love-btn {
     font-size: 80px;
     margin: auto;
+    cursor: pointer;
 }
 
 #hate-btn {
@@ -98,17 +99,6 @@ i {
 
 #submit:hover, #love-btn:hover, #hate-btn:hover {
     background-color: #FED766;
-}
-
-
-#map img{
-    height: 200px;
-    width: 200px;
-    border: 2px solid #e6e6ea;
-}
-
-#timer {
-    border: 2px solid #e6e6ea;
 }
 
 .card-header {
@@ -125,12 +115,30 @@ i {
 
 #image-api {
     margin-bottom: 15px !important;
+    margin:auto;
+    
 }
 
 footer{
     background-color: #FE4A49;
     bottom: 0;
     width: 100%;
+}
+
+h6{
+    text-align: center;
+}
+
+#match img {
+    margin-left: 25%;
+}
+
+#name-text {
+    margin-bottom: 10px;
+}
+
+#price-text, #rating-text {
+    margin: auto;
 }
 
 
