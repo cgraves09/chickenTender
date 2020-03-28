@@ -223,13 +223,14 @@ function yelpCall (){
         divRow.attr('latitude',item[i].coordinates.latitude);
         divRow.attr('longitude',item[i].coordinates.longitude);
         divRow.attr('about',dataAboutMe)
+        divRow.attr('url',item[i].url)
         divRow.append(hateBtn,image,loveBtn,name,price,rating,aboutMe,lineBreak,aboutText);
 
         // Append our result into the page
         $('#results').append(divRow);
         $('#results').slideDown(2000);
       }
-      console.log(aboutCounter)
+      
       if (aboutCounter === 2){
         aboutCounter = -1;
       } 
@@ -261,10 +262,11 @@ function yelpCall (){
           image: $(divRow).attr('image'),
           latitude: $(divRow).attr('latitude'),
           longitude: $(divRow).attr('longitude'),
-          about: $(divRow).attr('about')
+          about: $(divRow).attr('about'),
+          url: $(divRow).attr('url')
         });
 
-        if (option === 2) {
+        if (option === 3) {
           $('#results').empty();
           $('#results-title').empty();
           $('#results-title').append('<h5>Okay halfway there...Pick from the following choices:</h5>')
@@ -300,16 +302,18 @@ function retrieve (){
     var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
     var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
     var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
-    var snapImage = $('<img id="image-api" class="col-md-12" src="' + snapshot.val().image + '"height="400" width="300">');
+    var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
     var snapAboutText = $('<h5 id="about-text">' + snapshot.val().about + '</h5>')
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
+    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12">Yelp Page</a>');
     snapRow.attr('name',snapshot.val().name);
     snapRow.attr('category',snapshot.val().category);
     snapRow.attr('rating',snapshot.val().rating);
     snapRow.attr('image',snapshot.val().image);
     snapRow.attr('price',snapshot.val().price);
+    snapRow.attr('about',snapshot.val().snapAboutText);
     snapRow.append(hateBtn,snapImage,loveBtn,snapName,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
     locationLon = parseFloat(lonNum);
     locationLat = parseFloat(latNum);
@@ -335,7 +339,8 @@ function retrieve (){
         var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
         var finalImage = $('<img id="image-api" class="col-md-12" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
         var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
-        snapRow.append(finalImage,finalName,finalPrice,finalRating,finalAbout);
+        var finalAboutText = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('about') + '</h5>');
+        snapRow.append(finalImage,finalName,finalPrice,finalRating,finalAbout,lineBreak,snapAboutText,url);
         $('#results').append(snapRow)
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
