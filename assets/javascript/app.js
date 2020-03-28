@@ -201,7 +201,7 @@ function yelpCall (){
       var divRow = $('<div class="row">')
       // Itirate through the JSON array of 'businesses' which was returned by the API
       for (var i = 0; i < data.businesses.length; i++){
-        var image = $('<img class="col-md-12" src="' + item[i].image_url + '"height="400" width="300">')
+        var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
         var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
         var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
         var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
@@ -228,6 +228,10 @@ function yelpCall (){
         // Append our result into the page
         $('#results').append(divRow);
         $('#results').slideDown(2000);
+      }
+      console.log(aboutCounter)
+      if (aboutCounter === 2){
+        aboutCounter = -1;
       } 
       // conditional if yelp api doesnt return anymore businesses
       if (item.length === 0){
