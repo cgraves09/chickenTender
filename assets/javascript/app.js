@@ -224,7 +224,7 @@ function yelpCall (){
         divRow.attr('latitude',item[i].coordinates.latitude);
         divRow.attr('longitude',item[i].coordinates.longitude);
 
-        divRow.append(name,hateBtn,image,loveBtn,price,rating,aboutMe);
+        divRow.append(name,hateBtn,image,loveBtn,price,rating,aboutMe,lineBreak,aboutText);
 
         divRow.attr('about',dataAboutMe)
         divRow.attr('url',item[i].url)
@@ -340,6 +340,7 @@ function retrieve (){
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
     var snapAboutText = $('<h5 id="about-text">' + snapshot.val().about + '</h5>')
+    console.log(snapshot.val().about)
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
     var url = $('<a href="' + snapshot.val().url + '"class="col-md-12">Yelp Page</a>');
@@ -348,8 +349,10 @@ function retrieve (){
     snapRow.attr('rating',snapshot.val().rating);
     snapRow.attr('image',snapshot.val().image);
     snapRow.attr('price',snapshot.val().price);
+    snapRow.attr('about',snapshot.val().about);
+
     snapRow.append(snapName,hateBtn,snapImage,loveBtn,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
-    snapRow.attr('about',snapshot.val().snapAboutText);
+    
     
 
     locationLon = parseFloat(lonNum);
@@ -373,12 +376,12 @@ function retrieve (){
         var finalName = $('<h2 id="name-text"class="col-md-12">' + $(snapRow).attr('name') + '</h2>');
         var finalPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
-
         var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
         var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
-        var finalAboutText = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('about') + '</h5>');
+        var finalAboutText = $('<h5 id="about-text" class="col-md-12">' + $(snapRow).attr('about') + '</h5>');
+        console.log(finalAboutText)
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
-        snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout);
+        snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
         $('#results').append(snapRow)
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
