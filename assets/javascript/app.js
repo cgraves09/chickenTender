@@ -171,6 +171,7 @@ $('#user-name-input-btn').click(function() {
 // submit button to activate Yelp API call
 $('#submit').click(function(event){
   event.preventDefault();
+  audio();
   ranNum = Math.floor(Math.random()*50);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
   // calling yelp api
@@ -388,6 +389,13 @@ function clearData (){
   database.ref('options' + 9 + ranNum).remove();
   database.ref('options' + 10 + ranNum).remove();
 }
+
+// function for audio 
+function audio () {
+    var audio = document.getElementById('myAudio');
+
+    audio.play();
+};
 
 // Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
 
