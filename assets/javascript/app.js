@@ -9,14 +9,19 @@ var locationLat;
 var ranNum;
 var firstUser;
 var secondUser;
-var dataFoodImage;
-var americanAbout = ["assets/images/american/1.jpeg","assets/images/american/2.jpeg","assets/images/american/3.jpeg","assets/images/american/4.jpeg","assets/images/american/5.png","assets/images/american/6.jpeg","assets/images/american/7.jpg","assets/images/american/8.jpg","assets/images/american/9.jpg","assets/images/american/10.jpg"];
-var mexicanAbout = ["assets/images/mexican/1.jpg","assets/images/mexican/2.jpg","assets/images/mexican/3.jpg","assets/images/mexican/4.jpeg","assets/images/mexican/5.jpg","assets/images/mexican/6.jpeg","assets/images/mexican/7.jpg","assets/images/mexican/8.png","assets/images/mexican/9.jpg","assets/images/mexican/10.jpeg"];
-var thaiAbout = ["assets/images/thai/1.png","assets/images/thai/2.jpeg","assets/images/thai/3.jpeg","assets/images/thai/4.png","assets/images/thai/5.jpg","assets/images/thai/6.jpeg","assets/images/thai/7.jpg","assets/images/thai/8.jpg","assets/images/thai/9.jpg","assets/images/thai/10.png"];
-var greekAbout = ["assets/images/greek/1.png","assets/images/greek/2.jpg","assets/images/greek/3.png","assets/images/greek/4.jpg","assets/images/greek/5.jpg","assets/images/greek/6.jpeg","assets/images/greek/7.jpg","assets/images/greek/8.jpeg","assets/images/greek/9.jpeg","assets/images/greek/10.jpg"];
-var indianAbout = ["assets/images/indian/1.jpg","assets/images/indian/2.jpeg","assets/images/indian/3.png","assets/images/indian/4.jpeg","assets/images/indian/5.jpeg","assets/images/indian/6.png","assets/images/indian/7.jpeg","assets/images/indian/8.png","assets/images/indian/9.jpg","assets/images/indian/10.png"];
-var chineseAbout = ["assets/images/chinese/1.jpg","assets/images/chinese/2.jpg","assets/images/chinese/3.jpg","assets/images/chinese/4.jpg","assets/images/chinese/5.gif","assets/images/chinese/6.jpg","assets/images/chinese/7.jpg","assets/images/chinese/8.jpg","assets/images/chinese/9.jpeg","assets/images/chinese/10.jpg"];
-var italianAbout = ["assets/images/italian/1.png","assets/images/italian/2.jpg","assets/images/italian/3.jpeg","assets/images/italian/4.jpg","assets/images/italian/5.jpeg","assets/images/italian/6.jpeg","assets/images/italian/7.jpeg","assets/images/italian/8.jpg","assets/images/italian/9.jpg","assets/images/italian/10.jpeg"]
+var dataAboutMe;
+var lineBreak = $('<hr id="line-break">')
+var americanAbout = ['"Medium rare.  Thick.  Made just for you.  I like nibbles and bites.  Don’t be afraid to tell me your dirty desires.  Burger doesn’t judge.  Burger understands."',
+'"I’m pillowy, squishy, and tender, with tight but soft buns.  Unwrap me and take in all the juices I have to offer.", “Not bragging, but I have layers upon layers of succulent, moist meat between two soft buns.  I’m also faster than delivery"',
+'"Somebody call for six inches of heaven?  I’m all beef and ready to meat.  You bring the condoments?  Just joking, ketchup and mustard are fine."'];
+var mexicanAbout = ['“My tortilla is hot and ready to be filled with some juicy, flavorful meat."','"How would you like to make my soft taco hard?  Let’s tacoboutit."',
+'"I got gas today for $1.39, unfortunately it was at Taco Bell."'];
+var thaiAbout = ['"If you’re trying Thai food for the first time, you’re gonna have a pad thai."','"If you’re looking for something hot, spicy, and full of intense, burning heat then look no further.  Btw, you’ll regret eating me tomorrow, but life is about the moment, right?"',
+'"This place is more romantic than Thaitanic."'];
+var greekAbout = ['"My Big Fat Greek Takeout Order"','"It’s time to come out, I am a hummusexual."','"Why be with a zero, when you can get with this gyro"'];
+var indianAbout = ['"You know how many Indian food jokes I know?  Naan"','"I cannot comment on your mother, because cows are sacred in my country."','"Love burns, better bring some pepto bismo."'];
+var chineseAbout = ['"My girlfriend hated my obsession with Chinese food. Sushi left me."','"I don’t always eat Chinese food, but when I do, I get hungry again an hour later"','"Call me, you’ve got me wonton more already."'];
+var italianAbout = ['"Wanna see my cannoli?"', '"Let’s do it, life is about exploring all the pastabilities."', '"Wanna hear an Italian Star Wars joke?  I like my pasta cooked until delicately Chewy."']
 var aboutCounter = 0
 var aboutText;
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
@@ -97,47 +102,46 @@ function callGoogleApi() {
 
 // Initialize Map Code End
 
-// Function for selecting the images
+// Function for selecting the about mes
+function aboutMeSelector (){
+  if ($("#input-categories").val() === 'American'){
+    aboutText = $('<h5 id="about-text">' + americanAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = americanAbout[aboutCounter]
+    console.log(dataAboutMe)
+    return aboutText, dataAboutMe
+  }
+  else if ($("#input-categories").val() === 'Mexican'){
+    aboutText = $('<h5 id="about-text">' + mexicanAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = mexicanAbout[aboutCounter]
+    return aboutText, dataAboutMe
+  }
+    else if ($("#input-categories").val() === 'Thai'){
+    aboutText = $('<h5 id="about-text">' + thaiAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = thaiAbout[aboutCounter]
+    return aboutText, dataAboutMe 
+  }
+    else if ($("#input-categories").val() === 'Greek'){
+    aboutText = $('<h5 id="about-text">' + greekAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = greekAbout[aboutCounter]
+    return aboutText, dataAboutMe
+  }
+    else if ($("#input-categories").val() === 'Indian'){
+    aboutText = $('<h5 id="about-text">' + indianAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = indianAbout[aboutCounter]
+    return aboutText, dataAboutMe
+  }
+    else if ($("#input-categories").val() === 'Chinese'){
+    aboutText = $('<h5 id="about-text">' + chineseAbout[aboutCounter]+ '</h5>')
+    dataAboutMe = chineseAbout[aboutCounter]
+    return aboutText, dataAboutMe 
+  }
+    else if ($("#input-categories").val() === 'Italian'){
+    aboutText = $('<h5 id="about-text">' + italianAbout[imageCounter]+ '</h5>')
+    dataAboutMe = italianAbout[aboutCounter]
+    return aboutText, dataAboutMe
+  }
 
-// function imageSelector (){
-//   if ($("#input-categories").val() === 'American'){
-//     foodImage = $('<img class="col-md-12" src="' + americanFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = americanFoodImage[imageCounter]
-//     return foodImage, dataFoodImage
-//   }
-//   else if ($("#input-categories").val() === 'Mexican'){
-//     foodImage = $('<img class="col-md-12" src="' + mexicanFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = mexicanFoodImage[imageCounter]
-//     return foodImage
-//   }
-//     else if ($("#input-categories").val() === 'Thai'){
-//     foodImage = $('<img class="col-md-12" src="' + thaiFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = thaiFoodImage[imageCounter]
-//     return foodImage, dataFoodImage 
-//   }
-//     else if ($("#input-categories").val() === 'Greek'){
-//     foodImage = $('<img class="col-md-12" src="' + greekFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = greekFoodImage[imageCounter]
-//     return foodImage, dataFoodImage 
-//   }
-//     else if ($("#input-categories").val() === 'Indian'){
-//     foodImage = $('<img class="col-md-12" src="' + indianFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = indianFoodImage[imageCounter]
-//     return foodImage, dataFoodImage 
-//   }
-//     else if ($("#input-categories").val() === 'Chinese'){
-//     foodImage = $('<img class="col-md-12" src="' + chineseFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = chineseFoodImage[imageCounter]
-//     return foodImage, dataFoodImage 
-//   }
-//     else if ($("#input-categories").val() === 'Italian'){
-//     foodImage = $('<img class="col-md-12" src="' + italianFoodImage[imageCounter]+ '"height="400" width="300">')
-//     dataFoodImage = italianFoodImage[imageCounter]
-//     return foodImage, dataFoodImage 
-//   }
-
-
-// }
+}
 
 
 // firebase config
@@ -197,13 +201,13 @@ function yelpCall (){
       var divRow = $('<div class="row">')
       // Itirate through the JSON array of 'businesses' which was returned by the API
       for (var i = 0; i < data.businesses.length; i++){
-        var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
+        var image = $('<img class="col-md-12" src="' + item[i].image_url + '"height="400" width="300">')
         var name = $('<h2 id="name-text" class="col-md-6">' + item[i].name + '</h2>');
         var rating = $('<h4 id="rating-text" class="col-md-6"> Rating: ' + item[i].rating + '</h4>');
         var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
         var price = $('<h5 id="category-text" class="col-md-6"> Price: ' + item[i].price + '</h5>');
         var aboutMe = $('<h5 id="about-me" class="col-md-12"> About ' + item[i].name + '</h5>');
-        
+        aboutMeSelector();
         // conditional if price comes back as undefined
         if (item[i].price === undefined){
           item[i].price = 'N/A'
@@ -218,7 +222,8 @@ function yelpCall (){
         divRow.attr('category',item[i].categories[0].title);
         divRow.attr('latitude',item[i].coordinates.latitude);
         divRow.attr('longitude',item[i].coordinates.longitude);
-        divRow.append(hateBtn,image,loveBtn,name,price,rating,aboutMe);
+        divRow.attr('about',dataAboutMe)
+        divRow.append(hateBtn,image,loveBtn,name,price,rating,aboutMe,lineBreak,aboutText);
 
         // Append our result into the page
         $('#results').append(divRow);
@@ -242,6 +247,7 @@ function yelpCall (){
         counter++ 
         offset++;
         option++;
+        aboutCounter++
         // pushing items to the firebase console
         database.ref('options' + option + ranNum).push({
           name: $(divRow).attr('name'),
@@ -250,10 +256,11 @@ function yelpCall (){
           rating: $(divRow).attr('rating'),
           image: $(divRow).attr('image'),
           latitude: $(divRow).attr('latitude'),
-          longitude: $(divRow).attr('longitude')
+          longitude: $(divRow).attr('longitude'),
+          about: $(divRow).attr('about')
         });
 
-        if (option === 3) {
+        if (option === 2) {
           $('#results').empty();
           $('#results-title').empty();
           $('#results-title').append('<h5>Okay halfway there...Pick from the following choices:</h5>')
@@ -272,6 +279,7 @@ function yelpCall (){
          $('#hate-btn').click(function(event){
            event.preventDefault();
            offset++;
+           aboutCounter++;
            $('#results').slideUp(500);
            yelpCall();
         })
@@ -288,8 +296,9 @@ function retrieve (){
     var snapPrice = $('<h5 id="category-text" class="col-md-6"> Price: ' + snapshot.val().price + '</h5>')
     var snapCategory = $('<h5 id="category-text" class="col-md-6">' + snapshot.val().category + '</h4>');
     var snapRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + snapshot.val().rating + '</h3>');
+    var snapImage = $('<img id="image-api" class="col-md-12" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
-    var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
+    var snapAboutText = $('<h5 id="about-text">' + snapshot.val().about + '</h5>')
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
     snapRow.attr('name',snapshot.val().name);
@@ -297,9 +306,7 @@ function retrieve (){
     snapRow.attr('rating',snapshot.val().rating);
     snapRow.attr('image',snapshot.val().image);
     snapRow.attr('price',snapshot.val().price);
-
-    snapRow.append(hateBtn,snapImage,loveBtn,snapName,snapPrice,snapRating,snapAbout);
-
+    snapRow.append(hateBtn,snapImage,loveBtn,snapName,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
     locationLon = parseFloat(lonNum);
     locationLat = parseFloat(latNum);
 
@@ -322,11 +329,9 @@ function retrieve (){
         var finalPrice = $('<h5 id="category-text" class="col-md-6">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
         var finalRating = $('<h3 id="rating-text"class="col-md-6"> Rating: ' + $(snapRow).attr('rating') + '</h3>');
-
+        var finalImage = $('<img id="image-api" class="col-md-12" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
         var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
-        var finalImage = $('<img id="image-api" class="col-md-7" src="' + $(snapRow).attr('image') + '"height="400" width="300">');
         snapRow.append(finalImage,finalName,finalPrice,finalRating,finalAbout);
-
         $('#results').append(snapRow)
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
@@ -362,4 +367,4 @@ function clearData (){
 
 // Create function to display time to make a choice and use a metric of the time to say get divorce/break up use another api to display dating apps 
 
-//   create a timer function to start once user inputs zip code and clicks submit     
+//   create a timer function to start once user inputs zip code and clicks submit   
