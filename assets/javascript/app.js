@@ -24,6 +24,7 @@ var chineseAbout = ['"My girlfriend hated my obsession with Chinese food. Sushi 
 var italianAbout = ['"Wanna see my cannoli?"', '"Let’s do it, life is about exploring all the pastabilities."', '"Wanna hear an Italian Star Wars joke?  I like my pasta cooked until delicately Chewy."']
 var aboutCounter = 0
 var aboutText;
+var timeoutHandle;
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
 var userLon = '';
@@ -292,6 +293,35 @@ function yelpCall (){
       }      
     });
 };
+
+// function for countdown timer (two minutes), next is to add something when it reaches 0.
+function countdown(minutes, seconds) {
+  var seconds = 60;
+  var mins = minutes
+
+  function tick() {
+    var counter = document.getElementById("timer");
+    var current_minutes = mins - 1
+    seconds--;
+    counter.innerHTML =
+      current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+    if (seconds > 0) {
+      timeoutHandle = setTimeout(tick, 1000);
+    } else {
+
+      if (mins > 1) {
+
+        setTimeout(function() {
+          countdown(mins - 1);
+        }, 1000);
+
+      }
+    }
+  }
+  tick();
+}
+
+countdown(2);
 
 function retrieve (){
   $('#results').empty();
