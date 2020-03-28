@@ -106,33 +106,33 @@ function callGoogleApi() {
 // Function for selecting the about mes
 function aboutMeSelector (){
   if ($("#input-categories").val() === 'American'){
-    aboutText = $('<h5 id="about-text">' + americanAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + americanAbout[aboutCounter]+ '</p>')
     dataAboutMe = americanAbout[aboutCounter]
     console.log(dataAboutMe)
     return aboutText, dataAboutMe
   }
   else if ($("#input-categories").val() === 'Mexican'){
-    aboutText = $('<h5 id="about-text">' + mexicanAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + mexicanAbout[aboutCounter]+ '</p>')
     dataAboutMe = mexicanAbout[aboutCounter]
     return aboutText, dataAboutMe
   }
     else if ($("#input-categories").val() === 'Thai'){
-    aboutText = $('<h5 id="about-text">' + thaiAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + thaiAbout[aboutCounter]+ '</p>')
     dataAboutMe = thaiAbout[aboutCounter]
     return aboutText, dataAboutMe 
   }
     else if ($("#input-categories").val() === 'Greek'){
-    aboutText = $('<h5 id="about-text">' + greekAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + greekAbout[aboutCounter]+ '</p>')
     dataAboutMe = greekAbout[aboutCounter]
     return aboutText, dataAboutMe
   }
     else if ($("#input-categories").val() === 'Indian'){
-    aboutText = $('<h5 id="about-text">' + indianAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + indianAbout[aboutCounter]+ '</p>')
     dataAboutMe = indianAbout[aboutCounter]
     return aboutText, dataAboutMe
   }
     else if ($("#input-categories").val() === 'Chinese'){
-    aboutText = $('<h5 id="about-text">' + chineseAbout[aboutCounter]+ '</h5>')
+    aboutText = $('<p id="about-text">' + chineseAbout[aboutCounter]+ '</p>')
     dataAboutMe = chineseAbout[aboutCounter]
     return aboutText, dataAboutMe 
   }
@@ -207,7 +207,7 @@ function yelpCall (){
         var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '</h5>');
         // var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
         var price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
-        var aboutMe = $('<h5 id="about-me" class="col-md-12"> About ' + item[i].name + '</h5>');
+        var aboutMe = $('<h4 id="about-me" class="col-md-12"> About ' + item[i].name + '</h4>');
         aboutMeSelector();
         // conditional if price comes back as undefined
         if (item[i].price === undefined){
@@ -310,10 +310,10 @@ function retrieve (){
     var snapName = $('<h2 id="name-text"class="col-md-12">' + snapshot.val().name + '</h2>');
     var snapPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + snapshot.val().price + '</h5>')
     var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '</h5>');
-    var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
+    var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
-    var snapAbout = $('<h5 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h5>');
-    var snapAboutText = $('<h5 id="about-text">' + snapshot.val().about + '</h5>')
+    var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
+    var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>')
     console.log(snapshot.val().about)
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
@@ -351,8 +351,8 @@ function retrieve (){
         var finalPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
         var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
-        var finalAbout = $('<h5 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h5>');
-        var finalAboutText = $('<h5 id="about-text" class="col-md-12">' + $(snapRow).attr('about') + '</h5>');
+        var finalAbout = $('<h4 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h4>');
+        var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
         console.log(finalAboutText)
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
         snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
