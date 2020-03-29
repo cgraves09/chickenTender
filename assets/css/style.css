@@ -173,3 +173,12 @@ h6{
     background: #FED766;
     font-size: 25px;
 }
+#directions-title {
+    text-align: center;
+    color: #fff;
+    background: #FE4A49;
+}
+#its-a-match-title {
+    text-align: center;
+    font-family: cursive;
+}

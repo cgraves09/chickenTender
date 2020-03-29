@@ -350,7 +350,8 @@ function retrieve (){
         var finalAbout = $('<h4 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h4>');
         var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
-        snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
+        var itsAMatch = $("<h1 id='its-a-match-title'>It's A Match</h1>");
+        snapRow.append(itsAMatch,finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
         $('#results').append(snapRow);
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
@@ -362,6 +363,12 @@ function retrieve (){
           window.renderReact(endTime - startTime);
         })
         callGoogleApi();
+        $('#user-choice-card').empty()
+        $('#user-choice-card').append($('#timer'));
+        $('#user-choice-card').append($('<h4 id="directions-title">Directions</h4><hr id="line-break"'));
+        $('#user-choice-card').append($('#map'));
+        $('#user-choices').slideDown(2000);
+
       };
     });
 
