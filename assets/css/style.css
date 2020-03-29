@@ -1,12 +1,21 @@
+
 /* new */
 
+#line-break {
+    border: #FED766 solid 1px;
+    width: 90%;
+}
 
-
-
+#about-text {
+    margin: auto;
+    font-style: italic;
+}
 
 #map {
-    height: 200px;
-  }
+    height: 400px;
+}
+
+
   html, body {
     height: 100%;
     margin: 0;
@@ -86,25 +95,11 @@ i {
 #love-btn, #hate-btn {
     font-size: 80px;
     margin: auto;
-}
-
-#hate-btn {
-    float: left;
+    cursor: pointer;
 }
 
 #submit:hover, #love-btn:hover, #hate-btn:hover {
     background-color: #FED766;
-}
-
-
-#map img{
-    height: 200px;
-    width: 200px;
-    border: 2px solid #e6e6ea;
-}
-
-#timer {
-    border: 2px solid #e6e6ea;
 }
 
 .card-header {
@@ -121,6 +116,8 @@ i {
 
 #image-api {
     margin-bottom: 15px !important;
+    margin:auto;
+    
 }
 
 footer{
@@ -131,4 +128,20 @@ footer{
 
 h6{
     text-align: center;
+}
+
+#match img {
+    margin-left: 25%;
+}
+
+#name-text {
+    margin-bottom: 10px;
+}
+
+#price-text, #rating-text {
+    margin: auto;
+}
+
+#about-me {
+    margin-top: 40px;
 }

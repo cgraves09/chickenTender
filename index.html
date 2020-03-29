@@ -13,17 +13,17 @@
     <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
-
-
   </head>
 
   <body>
+    <audio id="myAudio">
+      <source src="assets/sounds/hungry.mp3" type="audio/mpeg">
+    </audio>
     <!--This header holds the name and input for geotagging-->
 
     <div class="header">
       <div id="logo"><span>Chicken </span><i class="fas fa-drumstick-bite"> tender</i></div>
-      <p>Because we know "I'll eat anything" is a damn lie.</p>
+      <p id="slogan">Because we know "I'll eat anything" is a damn lie.</p>
     </div>
     <div class="container">
       <!--user input section and the location where the results will be shown-->
@@ -63,7 +63,7 @@
                 <div class="form-group">
                   <label for="inputRadius">Radius</label>
                   <select id="input-radius" class="form-control">
-                    <option selected>Miles...</option>
+                    <option selected>...Miles</option>
                     <option value="5">5 mi</option>
                     <option value="10">10 mi</option>
                     <option value="15">15 mi</option>
@@ -93,7 +93,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Welcome to Chicken Tender, we are here to save your relationship. Let's get to know each other, tell us your names.</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Welcome to Chicken Tender, we are here to save your relationship. Let's get to know each other, tell us your names</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -101,7 +101,7 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Lady's Name:</label>
+                  <label for="recipient-name" class="col-form-label">Ladies Name:</label>
                   <input type="text" class="form-control" id="first-user">
                 </div>
                 <div class="form-group">
@@ -150,10 +150,6 @@
             <div class="modal-footer">
               <button id="lets-eat-btn" type="button" class="btn btn-primary"data-dismiss="modal">Let's Eat</button>
             </div>
-
-
-      <!--the geo map will be held on the left and the timer will be held on the right-->
-
           </div>
         </div>
       </div>
@@ -161,25 +157,34 @@
 
 
       <div class="row">
-        <div class="col-md-4">
-            <div id="map"></div>
+        <div class="col-md-4" id="timer"></div>
+        <div class="col-md-8">
+          <div id="map"></div>
         </div>
         <div class="col-md-2"></div>
-        <div class="col-md-6" id="timer"></div>
+        <div class="col-md-6" id="timer"><h1></h1></div>
       </div>
     </div>
 
 
-    <!-- Footer -->
+<!-- Footer -->
 <footer class="page-footer font-small pt-1">
-
   <!-- Footer Elements -->
   <div class="container">
-
+    <!--Heading-->
     <div class="row">
-
-      <div class="col-sm-2 mb-2">
-
+      <div class="col-md-12">
+        <h4>Meet the Developers</h4>
+      </div>
+    </div>
+    <div class="row">
+      <!--logo-->
+      <div class="col-md-2">
+        <a href="https://github.com/cgraves09/chickenTender">
+          <div id="logo"><span>Chicken </span><i class="fas fa-drumstick-bite"> tender</i></div>
+        </a>
+      </div>
+      <div class="col-md-2 mb-2">
         <!--Image-->
         <div class="profile-image">
           <a href="https://github.com/cgraves09">
@@ -189,11 +194,8 @@
           <h6>Christopher Graves</h6>
           
         </div>
-
       </div>
-
-      <div class="col-sm-2 mb-2">
-
+      <div class="col-md-2 mb-2">
         <!--Image-->
         <div class="profile-image">
           <a href="https://github.com/eireknight/Portfolio">
@@ -203,11 +205,8 @@
           <h6>Patrick O'Brien</h6>
         </div>
       </div>
-
       
-
-      <div class="col-sm-2 mb-2">
-
+      <div class="col-md-2 mb-2">
         <!--Image-->
         <div class="profile-image">
           <a href="https://dusting27.github.io/Basic-Portfolio/">
@@ -216,11 +215,8 @@
           </a>
           <h6>Dustin George</h6>
         </div>
-
       </div>
-
-      <div class="col-sm-2 mb-2">
-
+      <div class="col-md-2 mb-2">
         <!--Image-->
         <div class="profile-image">
           <a href="https://dsampson89.github.io/Basic-Portfolio/">
@@ -228,13 +224,9 @@
             alt="">
           </a>
           <h6>Dexter Sampson</h6>
-
         </div>
-
       </div>
-
-      <div class="col-sm-2 mb-2">
-
+      <div class="col-md-2 mb-2">
         <!--Image-->
         <div class="profile-image">
           <a href="https://mkstolley.github.io/Basic-Portfolio/index.html">
@@ -243,19 +235,14 @@
           </a>
           <h6>Matt Stolley</h6>
         </div>
-
       </div>
     </div>
-
     </div>
   <!-- Footer Elements -->
-
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2020 Copyright
   </div>
-
 </footer>
-
-    <script src="assets/javascript/app.js"></script>
-  </body>
+<script src="assets/javascript/app.js"></script>
+</body>
 </html>
