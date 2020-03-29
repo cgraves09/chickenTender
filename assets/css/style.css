@@ -20,6 +20,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
     
   }
 
@@ -151,4 +154,22 @@ h6{
 
 #about-me {
     margin-top: 40px;
+}
+.modal {
+    background: #FED766;
+}
+.modal-content {
+    background: #FE4A49;
+    color: #fff;
+}
+.modal-header{
+    text-align: center;
+}
+.modal-title{
+    text-align: center;
+    font-size: 25px;
+}
+.btn-primary{
+    background: #FED766;
+    font-size: 25px;
 }

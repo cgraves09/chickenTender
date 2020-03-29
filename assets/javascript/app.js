@@ -2,7 +2,8 @@
 var counter = 0;
 var offset = 0;
 var option = 0;
-var aboutCounter = 0
+var aboutCounter = 0;
+var hateCount = 0;
 var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
 var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
 var lineBreak = $('<hr id="line-break">')
@@ -49,7 +50,7 @@ var database = firebase.database();
 
 // Inital Modal for User Names
 $('#user-name-input').modal('show');
-
+$('body').css("background-image","url(assets/images/couple.jpg)")
 getLocation();
 
 // User Name Values Function
@@ -66,10 +67,11 @@ $('#submit').click(function(event){
   if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
     return false
   }
-  $('#user-choice-title').text("It's Tender Time")
+  $('#results').slideUp(1000)
+  $('#user-choice-title').html("<h4>It's Tender Time</h4><hr id='line-break'> <h6>Powered by</h6><img class='col-md-12' src='assets/images/yelp.png'>")
   $('#user-choices').slideUp(2000);
   audio();
-  ranNum = Math.floor(Math.random()*50);
+  ranNum = Math.floor(Math.random()*100);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
   // calling yelp api
   yelpCall();
@@ -98,7 +100,6 @@ function callGoogleApi() {
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
-      console.log(response);
        initMap();
     })
    
@@ -115,14 +116,12 @@ function initMap() {
   directionsRenderer.setMap(map);
 
   calculateAndDisplayRoute(directionsService, directionsRenderer);
-  document.getElementById('mode').addEventListener('change', function() {
+  document.getElementById('mode', function() {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
   });
       }
 
   function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    console.log(userLat)
-    console.log(locationLat)
     var selectedMode = 'DRIVING';
     directionsService.route({
       origin: {lat: userLat, lng: userLon},  
@@ -137,10 +136,7 @@ function initMap() {
        });
   }
 
-
-// Initialize Map Code End
-
-// Function for selecting the about mes
+// Function for selecting the about messages
 function aboutMeSelector (){
   if ($("#input-categories").val() === 'American'){
     aboutText = $('<p id="about-text">' + americanAbout[aboutCounter]+ '</p>')
@@ -190,7 +186,7 @@ function yelpCall (){
   var radius  = miles * 1609;
     
   // Yelp API URL
-  var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + categories+ "&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&open_now=true&offset=" + offset + "&limit=1";
+  var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + categories+ "&latitude=" + userLat + "&longitude=" + userLon + "&radius=" + radius + "&price" + price + "&offset=" + offset + "&limit=1";
   
   $.ajax({
     url: myurl,
@@ -208,15 +204,14 @@ function yelpCall (){
       for (var i = 0; i < data.businesses.length; i++){
         var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
         var name = $('<h2 id="name-text" class="col-md-12">' + item[i].name + '</h2>');
-        var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '</h5>');
-        // var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
+        var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '⭐</h5>');
         var price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         var aboutMe = $('<h4 id="about-me" class="col-md-12"> About ' + item[i].name + '</h4>');
         aboutMeSelector();
         // conditional if price comes back as undefined
         if (item[i].price === undefined){
           item[i].price = 'N/A'
-          price = $('<h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
+          price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         }
 
         // Attaching tags to the column
@@ -311,15 +306,14 @@ function retrieve (){
 
     var snapName = $('<h2 id="name-text"class="col-md-12">' + snapshot.val().name + '</h2>');
     var snapPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + snapshot.val().price + '</h5>')
-    var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '</h5>');
+    var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '⭐</h5>');
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
-    var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>')
-    console.log(snapshot.val().about)
+    var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>');
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
-    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12">Yelp Page</a>');
+    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12"><h3>Restaurant Info<h3></a>');
     snapRow.attr('name',snapshot.val().name);
     snapRow.attr('category',snapshot.val().category);
     snapRow.attr('rating',snapshot.val().rating);
@@ -352,16 +346,17 @@ function retrieve (){
         var finalName = $('<h2 id="name-text"class="col-md-12">' + $(snapRow).attr('name') + '</h2>');
         var finalPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
-        var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
+        var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '⭐</h5>');
         var finalAbout = $('<h4 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h4>');
         var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
         snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
-        $('#results').append(snapRow)
+        $('#results').append(snapRow);
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
-        $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>')
+        $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>');
         $('#itsAMatch').modal('show');
+        $('body').css("background-image","url(assets/images/fireworks.gif)");
         endTime = Date.now();
         $('#lets-eat-btn').click(function(){
           window.renderReact(endTime - startTime);
@@ -374,6 +369,13 @@ function retrieve (){
       event.preventDefault();
       $('#results').slideUp(500);
       option++;
+      hateCount++
+      if (hateCount >= 3){
+        option = 1;
+        $('#wont-make-choice-text').html('<h4>Listen ' + secondUser + ' just figure it out and pick one</h4>');
+        $('#wont-make-choice').modal('show');
+        retrieve();
+      }
       retrieve();
     })
   });
