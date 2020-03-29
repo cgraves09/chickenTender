@@ -100,6 +100,7 @@ i {
     display:block;
     border-radius: 50%;
     height: 120px;
+    width: 120px;
     padding: 20px;
     border-color: 3px solid #FED766;
 }
