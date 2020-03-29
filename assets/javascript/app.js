@@ -99,7 +99,6 @@ function callGoogleApi() {
       dataType: 'json',
       method: 'GET'
     }).then(function (response) {
-      console.log(response);
        initMap();
     })
    
@@ -116,14 +115,12 @@ function initMap() {
   directionsRenderer.setMap(map);
 
   calculateAndDisplayRoute(directionsService, directionsRenderer);
-  document.getElementById('mode').addEventListener('change', function() {
+  document.getElementById('mode', function() {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
   });
       }
 
   function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-    console.log(userLat)
-    console.log(locationLat)
     var selectedMode = 'DRIVING';
     directionsService.route({
       origin: {lat: userLat, lng: userLon},  
@@ -138,10 +135,7 @@ function initMap() {
        });
   }
 
-
-// Initialize Map Code End
-
-// Function for selecting the about mes
+// Function for selecting the about messages
 function aboutMeSelector (){
   if ($("#input-categories").val() === 'American'){
     aboutText = $('<p id="about-text">' + americanAbout[aboutCounter]+ '</p>')
@@ -305,7 +299,6 @@ function yelpCall (){
 
 // retrive function from firebase storage
 function retrieve (){
-  console.log(option)
   $('#results').empty();
   var snapRow = $('<div class="row">');
   // retrieving data set from user selections
@@ -317,8 +310,7 @@ function retrieve (){
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
-    var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>')
-    console.log(snapshot.val().about)
+    var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>');
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
     var url = $('<a href="' + snapshot.val().url + '"class="col-md-12"><h3>Restaurant Info<h3></a>');
@@ -359,10 +351,10 @@ function retrieve (){
         var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
         snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
-        $('#results').append(snapRow)
+        $('#results').append(snapRow);
         var matchGif = $('<img src="assets/images/chicken.gif" height="200" width="200">');
         $('#match').append(matchGif);
-        $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>')
+        $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>');
         $('#itsAMatch').modal('show');
         endTime = Date.now();
         $('#lets-eat-btn').click(function(){
@@ -379,8 +371,8 @@ function retrieve (){
       hateCount++
       if (hateCount >= 3){
         option = 1;
-        $('#wont-make-choice-text').html('<h4>Listen ' + secondUser + ' just figure it out and pick one</h4>')
-        $('#wont-make-choice').modal('show')
+        $('#wont-make-choice-text').html('<h4>Listen ' + secondUser + ' just figure it out and pick one</h4>');
+        $('#wont-make-choice').modal('show');
         retrieve();
       }
       retrieve();
