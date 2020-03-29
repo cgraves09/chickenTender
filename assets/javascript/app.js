@@ -364,7 +364,7 @@ function retrieve (){
         $('#itsAMatch').modal('show');
         endTime = Date.now();
         $('#lets-eat-btn').click(function(){
-          window.timeSpent = endTime - startTime;
+          window.renderReact(endTime - startTime);
         })
         callGoogleApi();
       };
