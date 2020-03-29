@@ -161,10 +161,14 @@ h6{
     background: #FE4A49;
     color: #fff;
 }
-
+.modal-header{
+    text-align: center;
+}
 .modal-title{
     text-align: center;
+    font-size: 25px;
 }
 .btn-primary{
     background: #FED766;
+    font-size: 25px;
 }

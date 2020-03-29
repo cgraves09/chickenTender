@@ -67,10 +67,11 @@ $('#submit').click(function(event){
   if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
     return false
   }
-  $('#user-choice-title').html("<h4>It's Tender Time</h4> <h6>Powered by</h6><img class='col-md-12' src='assets/images/yelp.png'>")
+  $('#results').slideUp(1000)
+  $('#user-choice-title').html("<h4>It's Tender Time</h4><hr id='line-break'> <h6>Powered by</h6><img class='col-md-12' src='assets/images/yelp.png'>")
   $('#user-choices').slideUp(2000);
   audio();
-  ranNum = Math.floor(Math.random()*50);
+  ranNum = Math.floor(Math.random()*100);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
   // calling yelp api
   yelpCall();
