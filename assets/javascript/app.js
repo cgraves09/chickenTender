@@ -50,7 +50,7 @@ var database = firebase.database();
 
 // Inital Modal for User Names
 $('#user-name-input').modal('show');
-
+$('body').css("background-image","url(assets/images/couple.jpg)")
 getLocation();
 
 // User Name Values Function
@@ -356,6 +356,7 @@ function retrieve (){
         $('#match').append(matchGif);
         $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>');
         $('#itsAMatch').modal('show');
+        $('body').css("background-image","url(assets/images/fireworks.gif)");
         endTime = Date.now();
         $('#lets-eat-btn').click(function(){
           window.timeSpent = endTime - startTime;

@@ -20,9 +20,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background-image: url("../images/couple.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: top;
     
   }
 
