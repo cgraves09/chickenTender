@@ -25,6 +25,10 @@ var italianAbout = ['"Wanna see my cannoli?"', '"Let’s do it, life is about ex
 // Location Code: Upon loading page, will request user location immediately instead of using a zip code input
 var userLat = '';
 var userLon = '';
+// Start Time
+var startTime = 0;
+var endTime = 0;
+
 
 // firebase config
 var firebaseConfig = {
@@ -41,6 +45,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 var database = firebase.database();
+
 
 // Inital Modal for User Names
 $('#user-name-input').modal('show');
@@ -174,6 +179,24 @@ function aboutMeSelector (){
   }
 
 }
+
+// User Name Values Function
+$('#user-name-input-btn').click(function() {
+  firstUser = $('#first-user').val();
+  secondUser = $('#second-user').val();
+  $('#user-name-input').modal('hide');
+  startTime = Date.now();
+});
+
+// submit button to activate Yelp API call
+$('#submit').click(function(event){
+  event.preventDefault();
+  ranNum = Math.floor(Math.random()*50);
+  $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
+  // calling yelp api
+  yelpCall();
+});
+
 
 // yelp api call
 function yelpCall (){
@@ -357,6 +380,10 @@ function retrieve (){
         $('#match').append(matchGif);
         $('#match').append('<h3> Congrats ' + firstUser + ' & ' + secondUser + ' you finally agreed on something</h3>')
         $('#itsAMatch').modal('show');
+        endTime = Date.now();
+        $('#lets-eat-btn').click(function(){
+          window.timeSpent = endTime - startTime;
+        })
         callGoogleApi();
       };
     });
