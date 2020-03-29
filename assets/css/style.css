@@ -1,31 +1,30 @@
-
 /* new */
 
 #line-break {
-    border: #FED766 solid 1px;
+    border: #fed766 solid 1px;
     width: 90%;
-}
-
-#about-text {
+  }
+  
+  #about-text {
     margin: auto;
     font-style: italic;
-}
-
-#map {
+  }
+  
+  #map {
     height: 400px;
-}
-
-
-  html, body {
+  }
+  
+  html,
+  body {
     height: 100%;
     margin: 0;
     padding: 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
-    
+    background-color: black;
   }
-
+  
   #floating-panel {
     position: absolute;
     top: 10px;
@@ -35,150 +34,161 @@
     padding: 5px;
     border: 1px solid #999;
     text-align: center;
-    font-family: 'Roboto','sans-serif';
+    font-family: "Roboto", "sans-serif";
     line-height: 30px;
     padding-left: 10px;
   }
-
-
-body {
-    background-color: #F4F4F8;
-}
-
-.header {
-    background-color: #FE4A49;
+  
+  body {
+    background-color: #f4f4f8;
+  }
+  
+  .header {
+    background-color: #fe4a49;
     height: 70px;
-}
-
-.row {
+  }
+  
+  .row {
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-.card {
+  }
+  
+  .card {
     margin-bottom: 20px;
-}
-
-#logo {
+  }
+  
+  #logo {
     color: white;
     font-size: 30px;
     float: left;
     margin-left: 10px;
-}
-
-p {
+  }
+  
+  p {
     font-style: italic;
     margin-top: 33px;
     margin-right: 10px;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     float: right;
-}
-
-span {
-    color: #FED766;
+  }
+  
+  span {
+    color: #fed766;
     font-family: Brush Script MT;
     font-size: 50px;
-}
-
-i {
+  }
+  
+  i {
     font-family: Gill Sans;
-}
-
-.col-md-8 {
+  }
+  
+  .col-md-8 {
     /* border: 2px solid #e6e6ea; */
     padding: 0;
-}
-
-#submit, #love-btn, #hate-btn {
-    background-color: #FED766;
-    border-color: 1px solid #2AB7CA;
-    
-}
-
-#love-btn, #hate-btn {
+  }
+  
+  #submit,
+  #love-btn,
+  #hate-btn {
+    background-color: #fed766;
+    border-color: 1px solid #2ab7ca;
+  }
+  
+  #love-btn,
+  #hate-btn {
     font-size: 80px;
     margin: auto;
     cursor: pointer;
-    display:block;
+    display: block;
     border-radius: 50%;
     height: 120px;
     width: 120px;
     padding: 20px;
-    border-color: 3px solid #FED766;
-}
-
-#submit:hover, #love-btn:hover, #hate-btn:hover {
-    background-color: #2AB7CA;
-}
-
-.card-header {
-    background-color: #FE4A49;
+    border-color: 3px solid #fed766;
+  }
+  
+  #submit:hover,
+  #love-btn:hover,
+  #hate-btn:hover,
+  .btn-warning:hover {
+    background-color: #2ab7ca;
+    color: white;
+  }
+  
+  
+  .card-header {
+    background-color: #fe4a49;
     color: white;
     text-align: center;
-}
-
-.choice {
+  }
+  
+  .choice {
     text-align: center;
     margin: auto;
-}
-
-
-#image-api {
+  }
+  
+  #image-api {
     margin-bottom: 15px !important;
-    margin:auto;
-    
-}
-
-footer{
-    background-color: #FE4A49;
+    margin: auto;
+  }
+  
+  footer {
+    background-color: #fe4a49;
     bottom: 0;
     width: 100%;
-}
-
-h6{
+  }
+  
+  h6 {
     text-align: center;
-}
-
-#match img {
+  }
+  
+  #match img {
     margin-left: 25%;
-}
-
-#name-text {
+  }
+  
+  #name-text {
     margin-bottom: 10px;
-}
-
-#price-text, #rating-text {
+  }
+  
+  #price-text,
+  #rating-text {
     margin: auto;
-}
-
-#about-me {
+  }
+  
+  #about-me {
     margin-top: 40px;
-}
-.modal {
-    background: #FED766;
-}
-.modal-content {
-    background: #FE4A49;
+  }
+  .modal {
+    background: #fed766;
+  }
+  .modal-content {
+    background: #fe4a49;
     color: #fff;
-}
-.modal-header{
+  }
+  .modal-header {
     text-align: center;
-}
-.modal-title{
+  }
+  .modal-title {
     text-align: center;
     font-size: 25px;
-}
-.btn-primary{
-    background: #FED766;
+  }
+  .btn-warning {
+    background: #fed766;
     font-size: 25px;
-}
-#directions-title {
+    color: white;
+  }
+  #directions-title {
     text-align: center;
     color: #fff;
-    background: #FE4A49;
-}
-#its-a-match-title {
+    background: #fe4a49;
+  }
+  #its-a-match-title {
     text-align: center;
     font-family: cursive;
-}
+    margin: auto;
+  }
+  
+  .col-md-12 h3 {
+    color: #2ab7ca;
+  }
