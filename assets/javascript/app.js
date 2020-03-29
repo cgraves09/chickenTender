@@ -67,7 +67,7 @@ $('#submit').click(function(event){
   if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
     return false
   }
-  $('#user-choice-title').text("It's Tender Time")
+  $('#user-choice-title').html("<h4>It's Tender Time</h4> <h6>Powered by</h6><img class='col-md-12' src='assets/images/yelp.png'>")
   $('#user-choices').slideUp(2000);
   audio();
   ranNum = Math.floor(Math.random()*50);
@@ -203,15 +203,14 @@ function yelpCall (){
       for (var i = 0; i < data.businesses.length; i++){
         var image = $('<img class="col-md-7" src="' + item[i].image_url + '"height="400" width="300">')
         var name = $('<h2 id="name-text" class="col-md-12">' + item[i].name + '</h2>');
-        var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '</h5>');
-        // var category = $('<h4 id="category-text" class="col-md-6">' + item[i].categories[0].title + '</h4>');
+        var rating = $('<h5 id="rating-text" class="col-md-3"> Rating: ' + item[i].rating + '⭐</h5>');
         var price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         var aboutMe = $('<h4 id="about-me" class="col-md-12"> About ' + item[i].name + '</h4>');
         aboutMeSelector();
         // conditional if price comes back as undefined
         if (item[i].price === undefined){
           item[i].price = 'N/A'
-          price = $('<h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
+          price = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + item[i].price + '</h5>');
         }
 
         // Attaching tags to the column
@@ -306,7 +305,7 @@ function retrieve (){
 
     var snapName = $('<h2 id="name-text"class="col-md-12">' + snapshot.val().name + '</h2>');
     var snapPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3"> Price: ' + snapshot.val().price + '</h5>')
-    var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '</h5>');
+    var snapRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + snapshot.val().rating + '⭐</h5>');
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
     var snapImage = $('<img id="image-api" class="col-md-7" src="' + snapshot.val().image + '"height="400" width="300">');
     var snapAbout = $('<h4 id="about-me" class="col-md-12"> About ' + snapshot.val().name + '</h4>');
@@ -346,7 +345,7 @@ function retrieve (){
         var finalName = $('<h2 id="name-text"class="col-md-12">' + $(snapRow).attr('name') + '</h2>');
         var finalPrice = $('<div class="col-md-2"></div><h5 id="category-text" class="col-md-3">Price: ' + $(snapRow).attr('price') + '</h5>');
         var finalCategory = $('<h5 id="category-text" class="col-md-6">' + $(snapRow).attr('category') + '</h5>');
-        var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
+        var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '⭐</h5>');
         var finalAbout = $('<h4 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h4>');
         var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
