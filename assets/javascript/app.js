@@ -228,8 +228,6 @@ function yelpCall (){
         divRow.attr('about',dataAboutMe)
         divRow.attr('url',item[i].url)
         
-
-
         // Append our result into the page
         $('#results').append(divRow);
         $('#results').slideDown(2000);
@@ -322,8 +320,6 @@ function retrieve (){
     snapRow.attr('about',snapshot.val().about);
 
     snapRow.append(snapName,hateBtn,snapImage,loveBtn,snapPrice,snapRating,snapAbout,lineBreak,snapAboutText);
-    
-    
 
     locationLon = parseFloat(lonNum);
     locationLat = parseFloat(latNum);
@@ -365,7 +361,7 @@ function retrieve (){
         callGoogleApi();
         $('#user-choice-card').empty()
         $('#user-choice-card').append($('#timer'));
-        $('#user-choice-card').append($('<h4 id="directions-title">Directions</h4><hr id="line-break">'));
+        $('#user-choice-card').append($('<h4 id="directions-title">Directions</h4>'));
         $('#user-choice-card').append($('#map'));
         $('#user-choices').slideDown(2000);
 
