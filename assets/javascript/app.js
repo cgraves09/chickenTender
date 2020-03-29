@@ -2,7 +2,8 @@
 var counter = 0;
 var offset = 0;
 var option = 0;
-var aboutCounter = 0
+var aboutCounter = 0;
+var hateCount = 0;
 var loveBtn = $('<i id="love-btn" class="fab fa-gratipay col-md-2"></i>')
 var hateBtn = $('<i id="hate-btn" class="far fa-times-circle col-md-2"></i>')
 var lineBreak = $('<hr id="line-break">')
@@ -304,6 +305,7 @@ function yelpCall (){
 
 // retrive function from firebase storage
 function retrieve (){
+  console.log(option)
   $('#results').empty();
   var snapRow = $('<div class="row">');
   // retrieving data set from user selections
@@ -319,7 +321,7 @@ function retrieve (){
     console.log(snapshot.val().about)
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
-    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12">Yelp Page</a>');
+    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12"><h3>Restaurant Info<h3></a>');
     snapRow.attr('name',snapshot.val().name);
     snapRow.attr('category',snapshot.val().category);
     snapRow.attr('rating',snapshot.val().rating);
@@ -374,6 +376,13 @@ function retrieve (){
       event.preventDefault();
       $('#results').slideUp(500);
       option++;
+      hateCount++
+      if (hateCount >= 3){
+        option = 1;
+        $('#wont-make-choice-text').html('<h4>Listen ' + secondUser + ' just figure it out and pick one</h4>')
+        $('#wont-make-choice').modal('show')
+        retrieve();
+      }
       retrieve();
     })
   });
