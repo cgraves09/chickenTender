@@ -108,7 +108,8 @@ i {
     border-color: 3px solid #FED766;
 }
 
-#submit:hover, #love-btn:hover, #hate-btn:hover {
+#submit:hover, #love-btn:hover, #hate-btn:hover, .btn-warning:hover{
+    color: white;
     background-color: #2AB7CA;
 }
 
@@ -169,9 +170,10 @@ h6{
     text-align: center;
     font-size: 25px;
 }
-.btn-primary{
+.btn-warning{
     background: #FED766;
     font-size: 25px;
+    color: white;
 }
 #directions-title {
     text-align: center;
@@ -181,4 +183,9 @@ h6{
 #its-a-match-title {
     text-align: center;
     font-family: cursive;
+    margin: auto;
+}
+
+.col-md-12 h3 {
+    color: #2AB7CA;
 }
