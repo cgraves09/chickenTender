@@ -88,18 +88,24 @@ i {
 }
 
 #submit, #love-btn, #hate-btn {
-    background-color: #2AB7CA;
-    border-color: 1px solid #FED766;
+    background-color: #FED766;
+    border-color: 1px solid #2AB7CA;
+    
 }
 
 #love-btn, #hate-btn {
     font-size: 80px;
     margin: auto;
     cursor: pointer;
+    display:block;
+    border-radius: 50%;
+    height: 120px;
+    padding: 20px;
+    border-color: 3px solid #FED766;
 }
 
 #submit:hover, #love-btn:hover, #hate-btn:hover {
-    background-color: #FED766;
+    background-color: #2AB7CA;
 }
 
 .card-header {
