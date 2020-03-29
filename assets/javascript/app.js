@@ -57,6 +57,7 @@ $('#user-name-input-btn').click(function() {
   firstUser = $('#first-user').val();
   secondUser = $('#second-user').val();
   $('#user-name-input').modal('hide');
+  startTime = Date.now();
 });
 
 // submit button to activate Yelp API call
@@ -179,24 +180,6 @@ function aboutMeSelector (){
   }
 
 }
-
-// User Name Values Function
-$('#user-name-input-btn').click(function() {
-  firstUser = $('#first-user').val();
-  secondUser = $('#second-user').val();
-  $('#user-name-input').modal('hide');
-  startTime = Date.now();
-});
-
-// submit button to activate Yelp API call
-$('#submit').click(function(event){
-  event.preventDefault();
-  ranNum = Math.floor(Math.random()*50);
-  $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
-  // calling yelp api
-  yelpCall();
-});
-
 
 // yelp api call
 function yelpCall (){
@@ -372,7 +355,6 @@ function retrieve (){
         var finalRating = $('<h5 id="rating-text"class="col-md-3"> Rating: ' + $(snapRow).attr('rating') + '</h5>');
         var finalAbout = $('<h4 id="about-me" class="col-md-12"> About ' + $(snapRow).attr('name') + '</h4>');
         var finalAboutText = $('<p id=p" class="col-md-12">' + $(snapRow).attr('about') + '</p>');
-        console.log(finalAboutText)
         var finalImage = $('<div class="col-md-2"></div><img id="image-api" class="col-md-7" m-auto src="' + $(snapRow).attr('image') + '"height="400" width="300"><div class="col-md-2"></div>');
         snapRow.append(finalName,finalImage,finalPrice,finalRating,finalAbout,lineBreak,finalAboutText,url);
         $('#results').append(snapRow)
