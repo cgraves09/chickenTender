@@ -20,6 +20,9 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    background-image: url("../images/couple.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     
   }
 
@@ -150,4 +153,18 @@ h6{
 
 #about-me {
     margin-top: 40px;
+}
+.modal {
+    background: #FED766;
+}
+.modal-content {
+    background: #FE4A49;
+    color: #fff;
+}
+
+.modal-title{
+    text-align: center;
+}
+.btn-primary{
+    background: #FED766;
 }
