@@ -60,6 +60,8 @@ $('#submit').click(function(event){
   if ($("#input-categories").val() === 'Choice...' || $('#input-price').val() === 'Choice...' || $('#input-radius').val() === '...Miles' || userLat === '' ){
     return false
   }
+  $('#user-choice-title').text("It's Tender Time")
+  $('#user-choices').slideUp(2000);
   audio();
   ranNum = Math.floor(Math.random()*50);
   $('#results-title').append('<h5>Alright ' + firstUser + '...Pick from the following choices:</h5>')
@@ -361,7 +363,7 @@ function retrieve (){
 
     $('#hate-btn').click(function(event){
       event.preventDefault();
-      $('#results').slideUp(2000);
+      $('#results').slideUp(500);
       option++;
       retrieve();
     })
