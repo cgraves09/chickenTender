@@ -27,8 +27,8 @@ var italianAbout = ['"Wanna see my cannoli?"', '"Let’s do it, life is about ex
 var userLat = '';
 var userLon = '';
 // Start Time
-var startTime = 0;
-var endTime = 0;
+var startTime = Date.now;
+var endTime = Date.now;
 
 
 // firebase config
