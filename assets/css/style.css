@@ -192,3 +192,11 @@ h6{
 #restaurant-info {
     color: #fff;
 }
+.timer-time-spent {
+    text-align: center;
+    margin: auto;
+}
+.timer-link-message {
+    text-align: center;
+    margin: auto;
+}
