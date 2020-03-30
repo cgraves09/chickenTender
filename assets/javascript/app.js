@@ -311,7 +311,7 @@ function retrieve (){
     var snapAboutText = $('<p id="about-text">' + snapshot.val().about + '</p>');
     var latNum = snapshot.val().latitude;
     var lonNum = snapshot.val().longitude;
-    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12"><h3>Restaurant Info<h3></a>');
+    var url = $('<a href="' + snapshot.val().url + '"class="col-md-12"><button id"restaurant-info class="btn btn-warning"><h3">Restaurant Information<h3></button></a>');
     snapRow.attr('name',snapshot.val().name);
     snapRow.attr('category',snapshot.val().category);
     snapRow.attr('rating',snapshot.val().rating);

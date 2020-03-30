@@ -12,7 +12,7 @@
 }
 
 #map {
-    height: 710px;
+    height: 680px;
 }
 
 
@@ -188,4 +188,7 @@ h6{
 
 .col-md-12 h3 {
     color: #2AB7CA;
+}
+#restaurant-info {
+    color: #fff;
 }
